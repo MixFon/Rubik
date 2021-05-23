@@ -15,11 +15,14 @@ class GameViewController: NSViewController {
     var boxBlue = SCNNode()
     var scene: SCNScene?
     
-    var iter = 0
+    var stepsNext: [String]?
+    var stepsPrevious: [String]?
     
-    let duration: TimeInterval = 0.5
+    let duration: TimeInterval = 0.1
     
     var actions = [SCNAction]()
+    
+    var flag = true
     
     enum Key: UInt16 {
         case Key_J = 38         // D
@@ -34,6 +37,9 @@ class GameViewController: NSViewController {
         case Key_X = 7          // F'
         case Key_C = 8          // B
         case Key_V = 9          // B'
+        case Key_Q = 12         // Next step
+        case Key_W = 13         // Prev step
+        case Key_R = 15         // Reset
     }
     
     enum Axis {
@@ -55,7 +61,10 @@ class GameViewController: NSViewController {
         guard let scene = self.scene else { return }
         
         addEvents()
-        
+        //self.stepsNext = ["L", "U", "D", "F", "L", "U", "D", "F", "L", "U", "D", "F", "L", "U", "D", "F"]
+        self.stepsNext = parserArraySteps(steps: [ "R2", "D'", "B'", "D", "F2", "R", "F2", "R2", "U", "L'", "F2", "U'", "B'", "L2", "R", "D", "B'", "R'", "B2", "L2", "F2", "L2", "R2", "U2", "D2"])
+        print(stepsNext!.count)
+        self.stepsPrevious = []
         // create and add a camera to the scene
         let cameraNode = SCNNode()
         cameraNode.camera = SCNCamera()
@@ -84,9 +93,6 @@ class GameViewController: NSViewController {
         // animate the 3d object
         //ship.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: 2, z: 0, duration: 1)))
         
-        self.central = getBox(x: 0, y: 0, z: 0, len: 4, color: .red)
-        //self.scene?.rootNode.addChildNode(self.central)
-        //addUp()
         addCube()
         
         // retrieve the SCNView
@@ -111,6 +117,25 @@ class GameViewController: NSViewController {
         scnView.gestureRecognizers = gestureRecognizers
     }
     
+    // MARK: Преобразует входную последовательность поворотов (заменяя F2 на F F)
+    private func parserArraySteps(steps: [String]) -> [String] {
+        var result = [String]()
+        for step in steps {
+            if step.count == 2 {
+                if step.last == "2" {
+                    if let first = step.first {
+                        result.append(String(first))
+                        result.append(String(first))
+                        continue
+                    }
+                }
+            }
+            result.append(step)
+        }
+        return result
+    }
+    
+    // MARK: Добавлние обработку событий.
     private func addEvents() {
         NSEvent.addLocalMonitorForEvents(matching: .keyDown) {
             if self.myKeyDown(with: $0) {
@@ -121,76 +146,105 @@ class GameViewController: NSViewController {
          }
     }
     
+    // MARK: Обработка событий нажатий клавиш
     private func myKeyDown(with event: NSEvent) -> Bool {
         // handle keyDown only if current window has focus, i.e. is keyWindow
         guard let locWindow = self.view.window,
            NSApplication.shared.keyWindow === locWindow else { return false }
+        //print(event.keyCode)
         switch event.keyCode {
         case Key.Key_A.rawValue:
             flipLeft(turn: .clockwise)
-            return true
         case Key.Key_S.rawValue:
             flipLeft(turn: .counterclockwise)
-            return true
-            /*
         case Key.Key_D.rawValue:
             flipUp(turn: .counterclockwise)
-            return true
         case Key.Key_F.rawValue:
             flipUp(turn: .clockwise)
-            return true
         case Key.Key_J.rawValue:
             flipDown(turn: .clockwise)
-            return true
         case Key.Key_K.rawValue:
             flipDown(turn: .counterclockwise)
-            return true
         case Key.Key_L.rawValue:
             flipRight(turn: .counterclockwise)
-            return true
         case Key.Key_Semicolon.rawValue:
             flipRight(turn: .clockwise)
-            return true
         case Key.Key_Z.rawValue:
             flipFront(turn: .counterclockwise)
-            return true
         case Key.Key_X.rawValue:
             flipFront(turn: .clockwise)
-            return true
         case Key.Key_C.rawValue:
             flipBack(turn: .clockwise)
-            return true
         case Key.Key_V.rawValue:
             flipBack(turn: .counterclockwise)
-            return true
- */
+        case Key.Key_Q.rawValue:
+            stepNext()
+        case Key.Key_W.rawValue:
+            stepPrevious()
+        case Key.Key_R.rawValue:
+            resetCube()
         default:
-           break
+            return false
         }
-        return false
-        
+        return true
     }
     
-    // MARK: Вращение левой грани L по или против часовой стрелке.
-    private func flipLeft(turn: Turn) {
-        guard let nodes = self.scene?.rootNode.childNodes.filter( {$0.position.x == -4 } ) else { return }
-        moveRotateNode(nodes: nodes, axis: .X, turn: turn)
+    // MARK: Шаг вперед.
+    private func stepNext() {
+        if self.stepsNext == nil { return }
+        if self.stepsNext!.isEmpty { return }
+        guard let flip = self.stepsNext?.removeLast() else { return }
+        while true {
+            if flipCube(flip: flip) {
+                break
+            }
+        }
+        self.stepsPrevious?.append(flip)
+    }
+    
+    // MARK: Шаг назад.
+    private func stepPrevious() {
+        if self.stepsPrevious == nil { return }
+        if self.stepsPrevious!.isEmpty { return }
+        guard let flip = self.stepsPrevious?.removeLast() else { return }
+        let reverse = reverseFlip(flip: flip)
+        while true {
+            if flipCube(flip: reverse) {
+                break
+            }
+        }
+        self.stepsNext?.append(flip)
+    }
+    
+    // MARK: Возвращение в исходное состояние.
+    private func resetCube() {
+        self.scene?.rootNode.childNodes.forEach( { $0.removeFromParentNode() } )
+        //addCube()
+        viewDidLoad()
+    }
+    
+    // MARK: Возвращает обратное значение вращения F -> F', U' -> U
+    private func reverseFlip(flip: String) -> String {
+        if flip.count == 2 {
+            if let first = flip.first {
+                return String(first)
+            }
+        }
+        return "\(flip)'"
     }
     
     // MARK: Вращение и движение кубиков.
-    private func moveRotateNode(nodes: [SCNNode], axis: Axis, turn: Turn) {
-        if !checkLokationNodes(nodes: nodes) { return }
+    private func moveRotateNode(nodes: [SCNNode], axis: Axis, turn: Turn) -> Bool {
+        if nodes.count != 9 { return false }
+        if !checkLokationNodes(nodes: nodes) { return true }
         nodes.forEach( {
-            moveNode(node: $0, axis: axis, turn: turn, actions: &self.actions)
-            rotateNode(node: $0, axis: axis, turn: turn)
+            animateRotateMoveNode(node: $0, axis: axis, turn: turn)
         } )
-        if let node = self.scene?.rootNode.childNodes.first {
-            let sequence = SCNAction.sequence(actions)
-            node.runAction(sequence)
-        }
+        self.flag = true
+        return true
     }
-    
-    // MARK: Проверяет позицию всех кубиков.
+   
+    // MARK: Проверяет позицию всех кубиков. Они должны стоять в 4, -4, 0
     private func checkLokationNodes(nodes: [SCNNode]) -> Bool {
         for node in nodes {
             if !isCorrectСoordinates(coordinate: node.position.x){
@@ -220,73 +274,90 @@ class GameViewController: NSViewController {
         }
     }
     
-    /*
+    // MARK: Вращение левой грани L по или против часовой стрелке.
+    private func flipLeft(turn: Turn) {
+        while true {
+            print("lsl")
+            guard let nodes = self.scene?.rootNode.childNodes.filter( {$0.position.x == -4 } ) else { return }
+            if moveRotateNode(nodes: nodes, axis: .X, turn: turn) { return }
+        }
+    }
+    
     // MARK: Вращение верхней грани U по или против часовой стрелке.
     private func flipUp(turn: Turn) {
-        guard let left = self.scene?.rootNode.childNodes.filter( {$0.position.y == 4 } ) else { return }
-        left.forEach( {
-            moveNode(node: $0, axis: .Y, turn: turn)
-            rotateNode(node: $0, axis: .Y, turn: turn)
-        } )
+        while true {
+            guard let nodes = self.scene?.rootNode.childNodes.filter( {$0.position.y == 4 } ) else { return }
+            if moveRotateNode(nodes: nodes, axis: .Y, turn: turn) { return }
+        }
     }
     
     // MARK: Вращение нижней грани D по или против часовой стрелке.
     private func flipDown(turn: Turn) {
-        guard let left = self.scene?.rootNode.childNodes.filter( {$0.position.y == -4 } ) else { return }
-        left.forEach( {
-            moveNode(node: $0, axis: .Y, turn: turn)
-            rotateNode(node: $0, axis: .Y, turn: turn)
-        } )
+        while true {
+            guard let nodes = self.scene?.rootNode.childNodes.filter( {$0.position.y == -4 } ) else { return }
+            if moveRotateNode(nodes: nodes, axis: .Y, turn: turn) { return }
+        }
     }
     
     // MARK: Вращение правой грани R по или против часовой стрелке.
     private func flipRight(turn: Turn) {
-        guard let left = self.scene?.rootNode.childNodes.filter( {$0.position.x == 4 } ) else { return }
-        left.forEach( {
-            moveNode(node: $0, axis: .X, turn: turn)
-            rotateNode(node: $0, axis: .X, turn: turn)
-        } )
+        while true {
+            guard let nodes = self.scene?.rootNode.childNodes.filter( {$0.position.x == 4 } ) else { return }
+            if moveRotateNode(nodes: nodes, axis: .X, turn: turn) { return }
+        }
     }
     
     // MARK: Вращение передней грани F по или против часовой стрелке.
     private func flipFront(turn: Turn) {
-        guard let left = self.scene?.rootNode.childNodes.filter( {$0.position.z == 4 } ) else { return }
-        left.forEach( {
-            moveNode(node: $0, axis: .Z, turn: turn)
-            rotateNode(node: $0, axis: .Z, turn: turn)
-        } )
+        while true {
+            guard let nodes = self.scene?.rootNode.childNodes.filter( {$0.position.z == 4 } ) else { return }
+            if moveRotateNode(nodes: nodes, axis: .Z, turn: turn) { return }
+        }
     }
     
     // MARK: Вращение передней грани B по или против часовой стрелке.
     private func flipBack(turn: Turn) {
-        guard let left = self.scene?.rootNode.childNodes.filter( {$0.position.z == -4 } ) else { return }
-        left.forEach( {
-            moveNode(node: $0, axis: .Z, turn: turn)
-            rotateNode(node: $0, axis: .Z, turn: turn)
-        } )
+        while true {
+            guard let nodes = self.scene?.rootNode.childNodes.filter( {$0.position.z == -4 } ) else { return }
+            if moveRotateNode(nodes: nodes, axis: .Z, turn: turn) { return }
+        }
     }
-    */
+    
     // MARK: Впредвижение ПО или ПРОТИВ часовой стредке, вокруг указанной оси.
-    private func moveNode(node: SCNNode, axis: Axis, turn: Turn, actions: inout [SCNAction] ) {
+    private func animateRotateMoveNode(node: SCNNode, axis: Axis, turn: Turn) {
         var position = node.position
         let chengeCoordinate: (inout CGFloat, inout CGFloat) -> ()
+        let angle: CGFloat
+        var positionAxis: SCNVector3
         if turn == .clockwise {
+            angle = .pi / 2
             chengeCoordinate = chengeCoordinateClockwise
         } else {
+            angle = -.pi / 2
             chengeCoordinate =  chengeCoordinateCounterclockwise
         }
         switch axis {
         case .X:
+            positionAxis = SCNVector3(1, 0, 0)
             chengeCoordinate(&position.z, &position.y)
         case .Y:
+            positionAxis = SCNVector3(0, 1, 0)
             chengeCoordinate(&position.x, &position.z)
         case .Z:
+            positionAxis = SCNVector3(0, 0, 1)
             chengeCoordinate(&position.y, &position.x)
         }
-        let action = SCNAction.customAction(duration: 0, action: { (nodeA, timer) in
-            node.runAction(.move(to: position, duration: self.duration))
-        })
-        actions.append(action)
+        let move = SCNAction.move(to: position, duration: self.duration)
+        move.timingMode = .easeInEaseOut
+        let rotate = SCNAction.rotate(by: angle, around: positionAxis, duration: self.duration)
+        rotate.timingMode = .easeInEaseOut
+        let moveRotate = SCNAction.group([move, rotate])
+        //node.runAction(move)
+        node.runAction(moveRotate)
+//        let action = SCNAction.customAction(duration: 0, action: { (nodeA, timer) in
+//
+//        })
+//        actions.append(action)
     }
     
     // MARK: Высичляет новые коорлинаты для ячейки, при повороте ПО часовой стрелке.
@@ -319,41 +390,20 @@ class GameViewController: NSViewController {
         }
     }
     
-    // MARK: Вращение кубика по или против часовой стрелки.
-    private func rotateNode(node: SCNNode, axis: Axis, turn: Turn) {
-        let angle: CGFloat
-        var position: SCNVector3
-        if turn == .clockwise {
-            angle = .pi / 2
-        } else {
-            angle = -.pi / 2
-        }
-        switch axis {
-        case .X:
-            position = SCNVector3(1, 0, 0)
-        case .Y:
-            position = SCNVector3(0, 1, 0)
-        case .Z:
-            position = SCNVector3(0, 0, 1)
-        }
-        node.runAction(.rotate(by: angle, around: position, duration: self.duration))
-    }
-    
     // MARK: Добавление куба на сцену.
     private func addCube() {
         let delta = 4
         for i in -1...1 {
             for j in -1...1 {
                 for k in -1...1 {
-                    let node = getBox(x: i * delta, y: j * delta, z: k * delta, len: delta, color: .yellow)
+                    let node = getBox(x: i * delta, y: j * delta, z: k * delta, len: delta)
                     self.scene?.rootNode.addChildNode(node)
                 }
             }
         }
-        
     }
     
-    private func getBox(x: Int, y: Int, z: Int, len: Int, color: NSColor) -> SCNNode {
+    private func getBox(x: Int, y: Int, z: Int, len: Int) -> SCNNode {
             let box = SCNNode()
             let len = CGFloat(len)
         box.geometry = SCNBox(width: len, height: len, length: len, chamferRadius: 0.7)
@@ -362,12 +412,12 @@ class GameViewController: NSViewController {
             //box.geometry!.firstMaterial!.diffuse.contents = NSString(stringLiteral: "Hello")
             //let im = NSImage(named: "\(number)")
         
-        let colors = [NSColor.blue, // front
-                      NSColor.red, // right
-                      NSColor.green, // back
-                      NSColor.orange, // left
-                      NSColor.yellow, // top
-                          NSColor.white] // bottom
+        let colors = [NSColor.blue,     // front
+                      NSColor.red,      // right
+                      NSColor.green,    // back
+                      NSColor.orange,   // left
+                      NSColor.yellow,   // top
+                      NSColor.white]    // bottom
 
             let sideMaterials = colors.map { color -> SCNMaterial in
                 let material = SCNMaterial()
@@ -390,6 +440,63 @@ class GameViewController: NSViewController {
             return box
         }
 
+    // MARK: Выполнение заданной последовательности вращений куба.
+    func flipCube(flip: String) -> Bool {
+        
+        guard self.flag else { return  false }
+        self.flag = false
+        usleep(useconds_t(1000000 * self.duration + 50000))
+//        sleep(1)
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+//            // Put your code which should be executed with a delay here
+//        }
+        print(flip)
+        switch flip {
+        case "L":
+            self.flipLeft(turn: .clockwise)
+        case "L'":
+            self.flipLeft(turn: .counterclockwise)
+        case "U":
+            self.flipUp(turn: .counterclockwise)
+        case "U'":
+            self.flipUp(turn: .clockwise)
+        case "D":
+            self.flipDown(turn: .clockwise)
+        case "D'":
+            self.flipDown(turn: .counterclockwise)
+        case "R":
+            self.flipRight(turn: .counterclockwise)
+        case "R'":
+            self.flipRight(turn: .clockwise)
+        case "F":
+            self.flipFront(turn: .counterclockwise)
+        case "F'":
+            self.flipFront(turn: .clockwise)
+        case "B":
+            self.flipBack(turn: .clockwise)
+        case "B'":
+            self.flipBack(turn: .counterclockwise)
+        default:
+            break
+            //sleep(3)
+        }
+        return true
+        /*
+            case Key_J = 38         // D
+            case Key_K = 40         // D'
+            case Key_L = 37         // R
+            case Key_Semicolon = 41 // R'
+            case Key_A = 0          // L
+            case Key_S = 1          // L'
+            case Key_D = 2          // U
+            case Key_F = 3          // U'
+            case Key_Z = 6          // F
+            case Key_X = 7          // F'
+            case Key_C = 8          // B
+         case Key_V = 9          // B'
+     }
+         */
+    }
     
     @objc
     func handleClick(_ gestureRecognizer: NSGestureRecognizer) {
@@ -398,25 +505,10 @@ class GameViewController: NSViewController {
         // retrieve the SCNView
         let scnView = self.view as! SCNView
         
-        let temp : SCNNode? = getBox(x: 0, y: 0, z: 0, len: 4, color: .black)
-        self.scene?.rootNode.addChildNode(temp!)
-        if self.iter % 2 == 0 {
-            guard let up = self.scene?.rootNode.childNodes.filter({$0.position.y == 4 && $0.position.x == 4}) else { return }
-            print(up.count)
-            up.forEach({ temp?.addChildNode($0) })
-            temp?.runAction(.rotate(by: .pi / 2, around: SCNVector3(1, 0, 0), duration: 1))
-            //up.forEach({ self.scene?.rootNode.addChildNode($0) })
-        } else {
-            guard let up = self.scene?.rootNode.childNodes.filter({$0.position.y == 4}) else { return }
-            print(up.count)
-            up.forEach({ temp?.addChildNode($0) })
-            temp?.runAction(.rotate(by: .pi / 2, around: SCNVector3(0, 1, 0), duration: 1))
-            //up.forEach({ self.scene?.rootNode.addChildNode($0) })
-        }
+        //flipCube(flips: ["L'", "L", "L"])
         //self.scene?.rootNode.replaceChildNode(temp!, with: self.central)
         //temp?.removeFromParentNode()
         //temp = nil
-        self.iter += 1
         
         //rotate(boxRed, around: SCNVector3(1, 0, 0), by: 40, duration: 4, completionBlock: nil)
         //boxRed.rotation = SCNVector4(0, 1, 0, 0.1)
