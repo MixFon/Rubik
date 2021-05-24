@@ -22,6 +22,8 @@ class GameViewController: NSViewController {
     
     var actions = [SCNAction]()
     
+    let cube = Cube()
+    
     var flag = true
     
     enum Key: UInt16 {
@@ -48,11 +50,6 @@ class GameViewController: NSViewController {
         case Z
     }
     
-    enum Turn {
-        case clockwise
-        case counterclockwise
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -65,6 +62,41 @@ class GameViewController: NSViewController {
         self.stepsNext = parserArraySteps(steps: [ "R2", "D'", "B'", "D", "F2", "R", "F2", "R2", "U", "L'", "F2", "U'", "B'", "L2", "R", "D", "B'", "R'", "B2", "L2", "F2", "L2", "R2", "U2", "D2"])
         print(stepsNext!.count)
         self.stepsPrevious = []
+        
+//        let tempCube = Cube()
+        //tempCube.flipDown(turn: .clockwise)
+        //tempCube.flipDown(turn: .counterclockwise)
+        
+//        tempCube.flipLeft(turn: .clockwise)
+//        tempCube.flipFront(turn: .clockwise)
+//        tempCube.flipRight(turn: .clockwise)
+//        tempCube.flipBack(turn: .clockwise)
+//        tempCube.flipUp(turn: .clockwise)
+//        tempCube.flipDown(turn: .clockwise)
+        
+//        tempCube.flipFront(turn: .clockwise)
+//        tempCube.flipRight(turn: .clockwise)
+//        tempCube.flipBack(turn: .clockwise)
+//        tempCube.flipLeft(turn: .clockwise)
+//        tempCube.flipFront(turn: .clockwise)
+//        tempCube.flipRight(turn: .clockwise)
+//        tempCube.flipBack(turn: .clockwise)
+//        tempCube.flipLeft(turn: .clockwise)
+//        tempCube.flipFront(turn: .clockwise)
+//        tempCube.flipRight(turn: .clockwise)
+//        tempCube.flipBack(turn: .clockwise)
+//        tempCube.flipLeft(turn: .clockwise)
+        
+//        tempCube.flipFront(turn: .counterclockwise)
+//        tempCube.flipRight(turn: .counterclockwise)
+//        tempCube.flipFront(turn: .counterclockwise)
+//        tempCube.flipRight(turn: .counterclockwise)
+//        tempCube.flipFront(turn: .counterclockwise)
+//        tempCube.flipRight(turn: .counterclockwise)
+//        tempCube.flipFront(turn: .counterclockwise)
+//        tempCube.flipRight(turn: .counterclockwise)
+//        tempCube.printCube()
+        
         // create and add a camera to the scene
         let cameraNode = SCNNode()
         cameraNode.camera = SCNCamera()
@@ -155,34 +187,47 @@ class GameViewController: NSViewController {
         switch event.keyCode {
         case Key.Key_A.rawValue:
             flipLeft(turn: .clockwise)
+            self.cube.flipLeft(turn: .clockwise)
         case Key.Key_S.rawValue:
             flipLeft(turn: .counterclockwise)
+            self.cube.flipLeft(turn: .counterclockwise)
         case Key.Key_D.rawValue:
             flipUp(turn: .counterclockwise)
+            self.cube.flipUp(turn: .clockwise)
         case Key.Key_F.rawValue:
             flipUp(turn: .clockwise)
+            self.cube.flipUp(turn: .counterclockwise)
         case Key.Key_J.rawValue:
             flipDown(turn: .clockwise)
+            self.cube.flipDown(turn: .clockwise)
         case Key.Key_K.rawValue:
             flipDown(turn: .counterclockwise)
+            self.cube.flipDown(turn: .counterclockwise)
         case Key.Key_L.rawValue:
             flipRight(turn: .counterclockwise)
+            self.cube.flipRight(turn: .clockwise)
         case Key.Key_Semicolon.rawValue:
             flipRight(turn: .clockwise)
+            self.cube.flipRight(turn: .counterclockwise)
         case Key.Key_Z.rawValue:
             flipFront(turn: .counterclockwise)
+            self.cube.flipFront(turn: .clockwise)
         case Key.Key_X.rawValue:
             flipFront(turn: .clockwise)
+            self.cube.flipFront(turn: .counterclockwise)
         case Key.Key_C.rawValue:
             flipBack(turn: .clockwise)
+            self.cube.flipBack(turn: .clockwise)
         case Key.Key_V.rawValue:
             flipBack(turn: .counterclockwise)
+            self.cube.flipBack(turn: .counterclockwise)
         case Key.Key_Q.rawValue:
             stepNext()
         case Key.Key_W.rawValue:
             stepPrevious()
         case Key.Key_R.rawValue:
-            resetCube()
+            self.cube.printCube()
+            //resetCube()
         default:
             return false
         }
@@ -277,7 +322,6 @@ class GameViewController: NSViewController {
     // MARK: Вращение левой грани L по или против часовой стрелке.
     private func flipLeft(turn: Turn) {
         while true {
-            print("lsl")
             guard let nodes = self.scene?.rootNode.childNodes.filter( {$0.position.x == -4 } ) else { return }
             if moveRotateNode(nodes: nodes, axis: .X, turn: turn) { return }
         }
@@ -416,8 +460,8 @@ class GameViewController: NSViewController {
                       NSColor.red,      // right
                       NSColor.green,    // back
                       NSColor.orange,   // left
-                      NSColor.yellow,   // top
-                      NSColor.white]    // bottom
+                      NSColor.yellow,   // up
+                      NSColor.white]    // down
 
             let sideMaterials = colors.map { color -> SCNMaterial in
                 let material = SCNMaterial()
@@ -478,24 +522,8 @@ class GameViewController: NSViewController {
             self.flipBack(turn: .counterclockwise)
         default:
             break
-            //sleep(3)
         }
         return true
-        /*
-            case Key_J = 38         // D
-            case Key_K = 40         // D'
-            case Key_L = 37         // R
-            case Key_Semicolon = 41 // R'
-            case Key_A = 0          // L
-            case Key_S = 1          // L'
-            case Key_D = 2          // U
-            case Key_F = 3          // U'
-            case Key_Z = 6          // F
-            case Key_X = 7          // F'
-            case Key_C = 8          // B
-         case Key_V = 9          // B'
-     }
-         */
     }
     
     @objc

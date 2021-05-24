@@ -13,6 +13,11 @@
 		29B9476B265654A3000FF259 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29B9476A265654A3000FF259 /* Assets.xcassets */; };
 		29B9476E265654A3000FF259 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29B9476C265654A3000FF259 /* Main.storyboard */; };
 		29B9477826565502000FF259 /* Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B9477726565502000FF259 /* Cube.swift */; };
+		29CAEEE9265B8AEF00213B5C /* Face.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29CAEEE8265B8AEF00213B5C /* Face.swift */; };
+		29CAEEEC265BB38700213B5C /* Turn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29CAEEEB265BB38700213B5C /* Turn.swift */; };
+		29CAEEF1265C00B800213B5C /* Heap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29CAEEEE265C00B800213B5C /* Heap.swift */; };
+		29CAEEF2265C00B800213B5C /* Heuristic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29CAEEEF265C00B800213B5C /* Heuristic.swift */; };
+		29CAEEF3265C00B800213B5C /* Rubik.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29CAEEF0265C00B800213B5C /* Rubik.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +30,11 @@
 		29B9476F265654A3000FF259 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		29B94770265654A3000FF259 /* UIRubic.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = UIRubic.entitlements; sourceTree = "<group>"; };
 		29B9477726565502000FF259 /* Cube.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cube.swift; sourceTree = "<group>"; };
+		29CAEEE8265B8AEF00213B5C /* Face.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Face.swift; sourceTree = "<group>"; };
+		29CAEEEB265BB38700213B5C /* Turn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Turn.swift; sourceTree = "<group>"; };
+		29CAEEEE265C00B800213B5C /* Heap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Heap.swift; sourceTree = "<group>"; };
+		29CAEEEF265C00B800213B5C /* Heuristic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Heuristic.swift; sourceTree = "<group>"; };
+		29CAEEF0265C00B800213B5C /* Rubik.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rubik.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +67,9 @@
 		29B947632656549F000FF259 /* UIRubic */ = {
 			isa = PBXGroup;
 			children = (
+				29CAEEEE265C00B800213B5C /* Heap.swift */,
+				29CAEEEF265C00B800213B5C /* Heuristic.swift */,
+				29CAEEF0265C00B800213B5C /* Rubik.swift */,
 				29B947642656549F000FF259 /* AppDelegate.swift */,
 				29B947662656549F000FF259 /* GameViewController.swift */,
 				29B947682656549F000FF259 /* art.scnassets */,
@@ -65,6 +78,8 @@
 				29B9476F265654A3000FF259 /* Info.plist */,
 				29B94770265654A3000FF259 /* UIRubic.entitlements */,
 				29B9477726565502000FF259 /* Cube.swift */,
+				29CAEEE8265B8AEF00213B5C /* Face.swift */,
+				29CAEEEB265BB38700213B5C /* Turn.swift */,
 			);
 			path = UIRubic;
 			sourceTree = "<group>";
@@ -139,8 +154,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				29CAEEEC265BB38700213B5C /* Turn.swift in Sources */,
+				29CAEEF3265C00B800213B5C /* Rubik.swift in Sources */,
+				29CAEEE9265B8AEF00213B5C /* Face.swift in Sources */,
 				29B947672656549F000FF259 /* GameViewController.swift in Sources */,
+				29CAEEF1265C00B800213B5C /* Heap.swift in Sources */,
 				29B947652656549F000FF259 /* AppDelegate.swift in Sources */,
+				29CAEEF2265C00B800213B5C /* Heuristic.swift in Sources */,
 				29B9477826565502000FF259 /* Cube.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
