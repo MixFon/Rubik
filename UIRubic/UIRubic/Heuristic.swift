@@ -14,6 +14,23 @@ enum Heuristic: String {
     case simple = "-s"
     
     // MARK: Возвращает эвристику согласно установленному флагу.
+    func getHeuristic(cube: Cube, coordinateTarget: [Int8: Coordinate]) -> Int {
+        var summa = 0
+        for i in 0...2 {
+            for j in 0...2 {
+                for k in 0...2 {
+                    if let targetCoor = coordinateTarget[cube.numbers[i][j][k]] {
+                        summa += abs(i - targetCoor.x) + abs(j - targetCoor.y) + abs(k - targetCoor.z)
+                    } else {
+                        print("Error summa")
+                    }
+                }
+            }
+        }
+        return summa
+    }
+    /*
+    // MARK: Возвращает эвристику согласно установленному флагу.
     func getHeuristic(coordinats: [Int16: (Int8, Int8)], coordinatsTarget: [Int16: (Int8, Int8)]) -> Int {
         switch self {
         case .manhattan:
@@ -59,4 +76,5 @@ enum Heuristic: String {
     private func simpleDintance(coordinats: (Int8, Int8), coordinatsTarget: (Int8, Int8)) -> Int {
         return coordinats == coordinatsTarget ? 0 : 1
     }
+ */
 }

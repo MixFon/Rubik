@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		29A8CBFA265D2E2000F8E3C5 /* Coodinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A8CBF9265D2E2000F8E3C5 /* Coodinate.swift */; };
 		29B947652656549F000FF259 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B947642656549F000FF259 /* AppDelegate.swift */; };
 		29B947672656549F000FF259 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B947662656549F000FF259 /* GameViewController.swift */; };
 		29B947692656549F000FF259 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 29B947682656549F000FF259 /* art.scnassets */; };
@@ -18,9 +19,11 @@
 		29CAEEF1265C00B800213B5C /* Heap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29CAEEEE265C00B800213B5C /* Heap.swift */; };
 		29CAEEF2265C00B800213B5C /* Heuristic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29CAEEEF265C00B800213B5C /* Heuristic.swift */; };
 		29CAEEF3265C00B800213B5C /* Rubik.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29CAEEF0265C00B800213B5C /* Rubik.swift */; };
+		29CAEEF7265CC93D00213B5C /* Axis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29CAEEF6265CC93D00213B5C /* Axis.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		29A8CBF9265D2E2000F8E3C5 /* Coodinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coodinate.swift; sourceTree = "<group>"; };
 		29B947612656549F000FF259 /* UIRubic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UIRubic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		29B947642656549F000FF259 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		29B947662656549F000FF259 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
@@ -35,6 +38,7 @@
 		29CAEEEE265C00B800213B5C /* Heap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Heap.swift; sourceTree = "<group>"; };
 		29CAEEEF265C00B800213B5C /* Heuristic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Heuristic.swift; sourceTree = "<group>"; };
 		29CAEEF0265C00B800213B5C /* Rubik.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rubik.swift; sourceTree = "<group>"; };
+		29CAEEF6265CC93D00213B5C /* Axis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Axis.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +84,8 @@
 				29B9477726565502000FF259 /* Cube.swift */,
 				29CAEEE8265B8AEF00213B5C /* Face.swift */,
 				29CAEEEB265BB38700213B5C /* Turn.swift */,
+				29CAEEF6265CC93D00213B5C /* Axis.swift */,
+				29A8CBF9265D2E2000F8E3C5 /* Coodinate.swift */,
 			);
 			path = UIRubic;
 			sourceTree = "<group>";
@@ -158,9 +164,11 @@
 				29CAEEF3265C00B800213B5C /* Rubik.swift in Sources */,
 				29CAEEE9265B8AEF00213B5C /* Face.swift in Sources */,
 				29B947672656549F000FF259 /* GameViewController.swift in Sources */,
+				29A8CBFA265D2E2000F8E3C5 /* Coodinate.swift in Sources */,
 				29CAEEF1265C00B800213B5C /* Heap.swift in Sources */,
 				29B947652656549F000FF259 /* AppDelegate.swift in Sources */,
 				29CAEEF2265C00B800213B5C /* Heuristic.swift in Sources */,
+				29CAEEF7265CC93D00213B5C /* Axis.swift in Sources */,
 				29B9477826565502000FF259 /* Cube.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
