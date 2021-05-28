@@ -9,19 +9,28 @@ import SceneKit
 
 struct Face: Hashable {
     
-    let color: NSColor
-    let letter: String
-    var matrix: [[NSColor]]
+    let color: Color
+    let flip: Flip
+    var matrix: [[Color]]
+    let index: Int
     
 //    var left: Face?
 //    var right: Face?
 //    var up: Face?
 //    var down: Face?
     
-    init(color: NSColor, letter: String) {
+    init(color: Color, flip: Flip, index: Int) {
         self.color = color
-        self.letter = letter
+        self.flip = flip
+        self.index = index
         self.matrix = Array(repeating: Array(repeating: color, count: 3), count: 3)
+    }
+    
+    init(face: Face) {
+        self.color = face.color
+        self.flip = face.flip
+        self.matrix = face.matrix
+        self.index = face.index
     }
     
     func printFace() {
@@ -33,8 +42,6 @@ struct Face: Hashable {
                     put = "L"
                 case .blue:
                     put = "F"
-                case .orange:
-                    put = "L"
                 case .red:
                     put = "R"
                 case .green:
@@ -43,8 +50,6 @@ struct Face: Hashable {
                     put = "U"
                 case .white:
                     put = "D"
-                default:
-                    put = "*"
                 }
                 print(put, terminator: " ")
             }

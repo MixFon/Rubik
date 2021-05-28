@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2952484C265FB91B00C5C2A4 /* Solution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2952484B265FB91B00C5C2A4 /* Solution.swift */; };
+		29524850265FF25A00C5C2A4 /* Flip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2952484F265FF25A00C5C2A4 /* Flip.swift */; };
+		296DB02026614BAA00DFB221 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296DB01F26614BAA00DFB221 /* Color.swift */; };
 		29A8CBFA265D2E2000F8E3C5 /* Coodinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A8CBF9265D2E2000F8E3C5 /* Coodinate.swift */; };
 		29B947652656549F000FF259 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B947642656549F000FF259 /* AppDelegate.swift */; };
 		29B947672656549F000FF259 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B947662656549F000FF259 /* GameViewController.swift */; };
@@ -18,11 +21,14 @@
 		29CAEEEC265BB38700213B5C /* Turn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29CAEEEB265BB38700213B5C /* Turn.swift */; };
 		29CAEEF1265C00B800213B5C /* Heap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29CAEEEE265C00B800213B5C /* Heap.swift */; };
 		29CAEEF2265C00B800213B5C /* Heuristic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29CAEEEF265C00B800213B5C /* Heuristic.swift */; };
-		29CAEEF3265C00B800213B5C /* Rubik.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29CAEEF0265C00B800213B5C /* Rubik.swift */; };
 		29CAEEF7265CC93D00213B5C /* Axis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29CAEEF6265CC93D00213B5C /* Axis.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		29524847265F9F5900C5C2A4 /* TempData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempData.swift; sourceTree = "<group>"; };
+		2952484B265FB91B00C5C2A4 /* Solution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Solution.swift; sourceTree = "<group>"; };
+		2952484F265FF25A00C5C2A4 /* Flip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flip.swift; sourceTree = "<group>"; };
+		296DB01F26614BAA00DFB221 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		29A8CBF9265D2E2000F8E3C5 /* Coodinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coodinate.swift; sourceTree = "<group>"; };
 		29B947612656549F000FF259 /* UIRubic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UIRubic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		29B947642656549F000FF259 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -55,6 +61,7 @@
 		29B947582656549F000FF259 = {
 			isa = PBXGroup;
 			children = (
+				29524847265F9F5900C5C2A4 /* TempData.swift */,
 				29B947632656549F000FF259 /* UIRubic */,
 				29B947622656549F000FF259 /* Products */,
 			);
@@ -86,6 +93,9 @@
 				29CAEEEB265BB38700213B5C /* Turn.swift */,
 				29CAEEF6265CC93D00213B5C /* Axis.swift */,
 				29A8CBF9265D2E2000F8E3C5 /* Coodinate.swift */,
+				2952484B265FB91B00C5C2A4 /* Solution.swift */,
+				2952484F265FF25A00C5C2A4 /* Flip.swift */,
+				296DB01F26614BAA00DFB221 /* Color.swift */,
 			);
 			path = UIRubic;
 			sourceTree = "<group>";
@@ -161,9 +171,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				29CAEEEC265BB38700213B5C /* Turn.swift in Sources */,
-				29CAEEF3265C00B800213B5C /* Rubik.swift in Sources */,
 				29CAEEE9265B8AEF00213B5C /* Face.swift in Sources */,
 				29B947672656549F000FF259 /* GameViewController.swift in Sources */,
+				29524850265FF25A00C5C2A4 /* Flip.swift in Sources */,
+				2952484C265FB91B00C5C2A4 /* Solution.swift in Sources */,
+				296DB02026614BAA00DFB221 /* Color.swift in Sources */,
 				29A8CBFA265D2E2000F8E3C5 /* Coodinate.swift in Sources */,
 				29CAEEF1265C00B800213B5C /* Heap.swift in Sources */,
 				29B947652656549F000FF259 /* AppDelegate.swift in Sources */,

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SceneKit
 
 class Rubik {
     
@@ -41,9 +42,9 @@ class Rubik {
     
     // MARK: Поиск решения, используя алгоритм A*. Стоит ограничение на 2*10^6 проссмотренных узлов.
     func searchSolutionWithHeap() -> Cube {
-        if self.cube == self.cubeTarget {
-            return self.cube!
-        }
+//        if self.cube == self.cubeTarget {
+//            return self.cube!
+//        }
         let heap = Heap()
         var complexityTime = 0
         let heuristic = self.heuristic!.getHeuristic(cube: self.cube!, coordinateTarget: self.coordinatsTarget)
@@ -54,6 +55,8 @@ class Rubik {
             let children = getChildrens(cube: cube)
             for cube in children {
                 if threeStep(cube: cube) {
+                    //locationSeven(cube: cube)
+                    //cross(cube: cube)
                     print("Solve!")
                     return cube
                 }
@@ -64,6 +67,107 @@ class Rubik {
         }
         print("The Pazzle has no solution.")
         return Cube()
+    }
+    
+    // MARK: Грань F
+    private func isFaceF(cube: Cube) -> Bool {
+        return
+            cube.faces[1].matrix[0][0] == NSColor.blue &&
+            cube.faces[1].matrix[1][0] == NSColor.blue &&
+            cube.faces[1].matrix[2][0] == NSColor.blue &&
+            cube.faces[1].matrix[2][1] == NSColor.blue &&
+            cube.faces[1].matrix[2][2] == NSColor.blue &&
+            cube.faces[1].matrix[1][2] == NSColor.blue &&
+            cube.faces[1].matrix[0][2] == NSColor.blue &&
+            cube.faces[1].matrix[0][1] == NSColor.blue
+    }
+    
+    // MARK: Крутим указанное число на правое место в координиту [2][2][1].
+    private func moveLocationRight(cube: Cube, number: Int8) {
+        while cube.numbers[2][2][1] != number {
+            cube.flipUp(turn: .clockwise)
+        }
+    }
+    
+    // MARK: Создание правильного креста.
+    private func cross(cube: Cube) {
+        if isCross(cube: cube) {
+            return
+        }
+        if let number = inNearby(cube: cube) {
+            print("Nearby")
+            moveLocationRight(cube: cube, number: number)
+            caseNearby(cube: cube)
+        } else {
+            // Возможно в дальнейшем можно будет убрать.
+            print("Opposite")
+            caseOpposite(cube: cube)
+            //cross(cube: cube)
+        }
+        moveLocationRight(cube: cube, number: 25)
+    }
+    
+    private func inNearby(cube: Cube) -> Int8? {
+        if isNeighbors(left: cube.numbers[0][2][1], rigth: cube.numbers[1][2][2]) {
+            return cube.numbers[0][2][1]
+        } else if isNeighbors(left: cube.numbers[1][2][2], rigth: cube.numbers[2][2][1]) {
+            return cube.numbers[1][2][2]
+        } else if isNeighbors(left: cube.numbers[2][2][1], rigth: cube.numbers[1][2][0]) {
+            return cube.numbers[2][2][1]
+        } else if isNeighbors(left: cube.numbers[1][2][0], rigth: cube.numbers[0][2][1]) {
+            return cube.numbers[1][2][0]
+        }
+        return nil
+    }
+    
+    // MARK: Проверяет являются ли два поданных числа соседними.
+    private func isNeighbors(left: Int8, rigth: Int8) -> Bool {
+        switch left {
+        case 7:
+            return rigth == 17
+        case 17:
+            return rigth == 25
+        case 25:
+            return rigth == 15
+        case 15:
+            return rigth == 7
+        default:
+            return false
+        }
+    }
+    
+    // MARK: Комбинация для случая "Рядом"
+    private func caseNearby(cube: Cube) {
+        cube.flipRight(turn: .clockwise)        // R
+        cube.flipUp(turn: .clockwise)           // U
+        cube.flipRight(turn: .counterclockwise) // R'
+        cube.flipUp(turn: .clockwise)           // U
+        cube.flipRight(turn: .clockwise)        // R
+        cube.flipUp(turn: .clockwise)           // U
+        cube.flipUp(turn: .clockwise)           // U
+        cube.flipRight(turn: .counterclockwise) // R'
+        cube.flipUp(turn: .clockwise)           // U
+    }
+    
+    // MARK: Комбинация для случая "Напротив"
+    private func caseOpposite(cube: Cube) {
+        cube.flipRight(turn: .clockwise)        // R
+        cube.flipUp(turn: .clockwise)           // U
+        cube.flipRight(turn: .counterclockwise) // R'
+        cube.flipUp(turn: .clockwise)           // U
+        cube.flipRight(turn: .clockwise)        // R
+        cube.flipUp(turn: .clockwise)           // U
+        cube.flipUp(turn: .clockwise)           // U
+        cube.flipRight(turn: .counterclockwise) // R'
+    }
+    
+    // MARK: Проверяет получился ли крест.
+    private func isCross(cube: Cube) -> Bool {
+        return
+            cube.numbers[0][2][1] == 7 &&
+            cube.numbers[2][2][1] == 25 &&
+            cube.numbers[1][2][0] == 15 &&
+            cube.numbers[1][2][2] == 17
     }
     
     // MARK: Возвращает список смежных состояний.
@@ -104,7 +208,7 @@ class Rubik {
             default:
                 continue
             }
-            newCube.path.append(flip)
+            //newCube.path.append(flip)
             let heuristic = self.heuristic!.getHeuristic(cube: newCube, coordinateTarget: self.coordinatsTarget)
             newCube.setF(heuristic: heuristic)
             if !self.close.contains(newCube.numbers.hashValue) {
@@ -114,7 +218,7 @@ class Rubik {
         return childrens
     }
     
-    // MARK: Первый шаг, првильный крест.
+    // MARK: Первый шаг, правильный крест.
     private func fitstStep(cube: Cube) -> Bool {
         return
             cube.numbers[0][0][1] == 1 &&
@@ -238,46 +342,5 @@ class Rubik {
             cube.numbers[2][2][0] == 24 &&
             cube.numbers[2][2][2] == 26 &&
             cube.numbers[0][2][2] == 8
-    }
-    
-    
-    func mixerRubik(count: Int) {
-        let flips = ["L", "F", "R", "B", "U", "D", "L'", "F'", "R'", "B'", "U'", "D'"]
-        var randomFlips = [String]()
-        for _ in 0..<count {
-            randomFlips.append(flips.randomElement()!)
-        }
-        print(randomFlips)
-        for flip in randomFlips {
-            switch flip {
-            case "L":
-                self.cube?.flipLeft(turn: .clockwise)
-            case "F":
-                self.cube?.flipFront(turn: .clockwise)
-            case "R":
-                self.cube?.flipRight(turn: .clockwise)
-            case "B":
-                self.cube?.flipBack(turn: .clockwise)
-            case "U":
-                self.cube?.flipUp(turn: .clockwise)
-            case "D":
-                self.cube?.flipDown(turn: .clockwise)
-            case "L'":
-                self.cube?.flipLeft(turn: .counterclockwise)
-            case "F'":
-                self.cube?.flipFront(turn: .counterclockwise)
-            case "R'":
-                self.cube?.flipRight(turn: .counterclockwise)
-            case "B'":
-                self.cube?.flipBack(turn: .counterclockwise)
-            case "U'":
-                self.cube?.flipUp(turn: .counterclockwise)
-            case "D'":
-                self.cube?.flipDown(turn: .counterclockwise)
-            default:
-                print("error")
-                continue
-            }
-        }
     }
 }
