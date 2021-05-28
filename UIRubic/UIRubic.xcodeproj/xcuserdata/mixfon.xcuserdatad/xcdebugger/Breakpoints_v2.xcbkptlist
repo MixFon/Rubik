@@ -46,8 +46,8 @@
             filePath = "UIRubic/Solution.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "256"
-            endingLineNumber = "256"
+            startingLineNumber = "276"
+            endingLineNumber = "276"
             landmarkName = "moveNuberToDown(face:number:)"
             landmarkType = "7">
          </BreakpointContent>
