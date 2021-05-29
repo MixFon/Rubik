@@ -19,6 +19,8 @@ class Solution {
         stepFirst()
         stepSecond()
         stepThree()
+        stepFour()
+        stepFive()
         return self.cube
     }
     
@@ -192,7 +194,7 @@ class Solution {
                 moveNuberToDown(face: face, number: number)
             } else {
                 let faceOnePifPaf = moveNuberFromDown(number: number)!
-                pifPafRighr(fase: faceOnePifPaf)
+                pifPafRight(face: faceOnePifPaf)
                 moveNumberToCorner(face: face, number: number)
                 moveNuberToDown(face: face, number: number)
             }
@@ -200,8 +202,8 @@ class Solution {
     }
     
     // Комбинация пиф-паф (относительно текущей грани face R U R' U')
-    private func pifPafRighr(fase: Face) {
-        let flipRight = fase.flip.faceRight()!
+    private func pifPafRight(face: Face) {
+        let flipRight = face.flip.faceRight()!
         self.cube.flip(flipRight)
         self.cube.flip(.U)
         self.cube.flip(flipRight.faceOpposite()!)
@@ -209,8 +211,8 @@ class Solution {
     }
     
     // Комбинация пиф-паф влево (относительно текущей грани face L' U' L U)
-    private func pifPafLeft(fase: Face) {
-        let flipLeft = fase.flip.faceLeft()!
+    private func pifPafLeft(face: Face) {
+        let flipLeft = face.flip.faceLeft()!
         self.cube.flip(flipLeft.faceOpposite()!)
         self.cube.flip(._U)
         self.cube.flip(flipLeft)
@@ -274,7 +276,7 @@ class Solution {
             coordinate = (0, 0, 0)
         }
         while self.cube.faces[face.index].matrix[2][2] != face.color || self.cube.numbers[coordinate.0][coordinate.1][coordinate.2] != number {
-            pifPafRighr(fase: face)
+            pifPafRight(face: face)
         }
     }
     
@@ -296,33 +298,66 @@ class Solution {
     
     // MARK: Этап третий. Средний слой.
     private func stepThree() {
-        forFlipRighr()
-        forFlipLeft()
+        while !isSecondLayer() {
+            forFlipRight()
+            forFlipLeft()
+            rotateRightsNumber()
+        }
     }
     
-    // Для поворота из центральной верхней вправо.
-    private func forFlipRighr() {
+    // Проверяет собран ли второй слой. Слева и справа цвета от центра должны совпадать.
+    private func isSecondLayer() -> Bool {
+        for face in self.cube.faces[0...3] {
+            if face.matrix[1][0] != face.color || face.matrix[1][2] != face.color {
+                return false
+            }
+        }
+        return true
+    }
+    
+    // Для поворота из центральной верхней точки грани вправо.
+    private func forFlipRight() {
         for (face, number) in zip(self.cube.faces[0...3], [5, 23, 21, 3]) {
             if isNumberInCentreUp(number: number) {
                 moveNumberToСentre(face: face, number: number)
                 self.cube.flip(.U)
-                pifPafRighr(fase: face)
-                pifPafLeft(fase: self.cube.faces[(face.index + 1) % 4])
+                pifPafRightLeft(face: face)
             }
         }
     }
     
-    // Для поворота из центральной верхней влево.
+    // Для поворота из центральной верхней точки грани влево.
     private func forFlipLeft() {
         for (face, number) in zip(self.cube.faces[0...3], [3, 5, 23, 21]) {
             if isNumberInCentreUp(number: number) {
                 moveNumberToСentre(face: face, number: number)
                 self.cube.flip(._U)
-                pifPafLeft(fase: face)
-                let index = (face.index - 1) < 0 ? 4 : face.index - 1
-                pifPafRighr(fase: self.cube.faces[index])
+                pifPafLeftRight(face: face)
             }
         }
+    }
+    
+    // Разворачавает цвета в правом центрально кубике текущей грани. Меняет их местами.
+    private func rotateRightsNumber() {
+        for face in self.cube.faces[0...3] {
+            if face.matrix[1][2] != face.color {
+                pifPafRightLeft(face: face)
+                return
+            }
+        }
+    }
+    
+    // Комбинация R U R' U' -> L' U' L U
+    private func pifPafRightLeft(face: Face) {
+        pifPafRight(face: face)
+        pifPafLeft(face: self.cube.faces[(face.index + 1) % 4])
+    }
+    
+    // Комбинация L' U' L U <- R U R' U'
+    private func pifPafLeftRight(face: Face) {
+        pifPafLeft(face: face)
+        let index = (face.index - 1) < 0 ? 4 : face.index - 1
+        pifPafRight(face: self.cube.faces[index])
     }
     
     // Передвижение номера в центры верхней грани. Координаты этих углов.
@@ -344,5 +379,174 @@ class Solution {
         while self.cube.numbers[coordinate.0][coordinate.1][coordinate.2] != number {
             self.cube.flip(.U)
         }
+    }
+    
+    // MARK: Этап четвертый. Сборка последнего слоя.
+    private func stepFour() {
+        if !isYellowCross() {
+            yellowDot()
+            yellowHalfCross()
+            yellowStick()
+        }
+    }
+    
+    // Если вверху палка.
+    private func yellowStick() {
+        print("yellowStick")
+        let faceUp = self.cube.faces[4]
+        if faceUp.matrix[1][0] == .yellow && faceUp.matrix[1][2] == .yellow {
+            self.cube.flip(.F)
+            pifPafRight(face: self.cube.getFase(type: .f))
+            self.cube.flip(._F)
+        }
+        if faceUp.matrix[2][1] == .yellow && faceUp.matrix[0][1] == .yellow {
+            self.cube.flip(.R)
+            pifPafRight(face: self.cube.getFase(type: .r))
+            self.cube.flip(._R)
+        }
+    }
+    
+    // Если вверху палка.
+    private func yellowHalfCross() {
+        print("yellowHalfCross")
+        let faceUp = self.cube.faces[4]
+        if faceUp.matrix[1][2] == .yellow && faceUp.matrix[0][1] == .yellow {
+            self.cube.flip(.L)
+            pifPafRight(face: self.cube.getFase(type: .l))
+            self.cube.flip(._L)
+        }
+        if faceUp.matrix[0][1] == .yellow && faceUp.matrix[1][0] == .yellow {
+            self.cube.flip(.F)
+            pifPafRight(face: self.cube.getFase(type: .f))
+            self.cube.flip(._F)
+        }
+        if faceUp.matrix[1][0] == .yellow && faceUp.matrix[2][1] == .yellow {
+            self.cube.flip(.R)
+            pifPafRight(face: self.cube.getFase(type: .r))
+            self.cube.flip(._R)
+        }
+        if faceUp.matrix[2][1] == .yellow && faceUp.matrix[1][2] == .yellow {
+            self.cube.flip(.B)
+            pifPafRight(face: self.cube.getFase(type: .b))
+            self.cube.flip(._B)
+        }
+    }
+    
+    // Если точка вверхней части.
+    private func yellowDot() {
+        print("yellowDot")
+        let faceUp = self.cube.faces[4]
+        if faceUp.matrix[1][0] != .yellow && faceUp.matrix[2][1] != .yellow &&
+            faceUp.matrix[1][2] != .yellow && faceUp.matrix[0][1] != .yellow {
+            self.cube.flip(.L)
+            pifPafRight(face: self.cube.getFase(type: .l))
+            self.cube.flip(._L)
+        }
+    }
+    
+    // Проверяет наличие желтого креста в верхнем слое (Up)
+    private func isYellowCross() -> Bool {
+        return
+            self.cube.faces[4].matrix[1][0] == .yellow &&
+            self.cube.faces[4].matrix[2][1] == .yellow &&
+            self.cube.faces[4].matrix[1][2] == .yellow &&
+            self.cube.faces[4].matrix[0][1] == .yellow
+    }
+    
+    // MARK: Пятый этап. Првильный желтый крест.
+    // MARK: Пятый этап. Првильный желтый крест.
+    private func stepFive() {
+        moveLocationRight(number: 25)
+        if isCross(cube: cube) {
+            return
+        }
+        if let number = inNearby() {
+            print("Nearby")
+            moveLocationRight(number: number)
+            caseNearby()
+        } else {
+            // Возможно в дальнейшем можно будет убрать.
+            print("Opposite")
+            caseOpposite()
+            if let number = inNearby() {
+                print("222Nearby")
+                moveLocationRight(number: number)
+                caseNearby()
+            }
+            //cross(cube: cube)
+        }
+        moveLocationRight(number: 25)
+    }
+
+    // Проверяет являтся ли числа соседними
+    private func inNearby() -> Int8? {
+        let cube = self.cube
+        if isNeighbors(left: cube.numbers[0][2][1], rigth: cube.numbers[1][2][2]) {
+            return cube.numbers[0][2][1]
+        } else if isNeighbors(left: cube.numbers[1][2][2], rigth: cube.numbers[2][2][1]) {
+            return cube.numbers[1][2][2]
+        } else if isNeighbors(left: cube.numbers[2][2][1], rigth: cube.numbers[1][2][0]) {
+            return cube.numbers[2][2][1]
+        } else if isNeighbors(left: cube.numbers[1][2][0], rigth: cube.numbers[0][2][1]) {
+            return cube.numbers[1][2][0]
+        }
+        return nil
+    }
+    
+    // Крутим указанное число на правое место в координиту [2][2][1].
+    private func moveLocationRight(number: Int8) {
+        while cube.numbers[2][2][1] != number {
+            self.cube.flip(.U)
+        }
+    }
+    
+    // Проверяет являются ли два поданных числа соседними.
+    private func isNeighbors(left: Int8, rigth: Int8) -> Bool {
+        switch left {
+        case 7:
+            return rigth == 17
+        case 17:
+            return rigth == 25
+        case 25:
+            return rigth == 15
+        case 15:
+            return rigth == 7
+        default:
+            return false
+        }
+    }
+    
+    // Комбинация для случая "Рядом"
+    private func caseNearby() {
+        self.cube.flip(.R)
+        self.cube.flip(.U)
+        self.cube.flip(._R)
+        self.cube.flip(.U)
+        self.cube.flip(.R)
+        self.cube.flip(.U)
+        self.cube.flip(.U)
+        self.cube.flip(._R)
+        self.cube.flip(.U)
+    }
+    
+    // Комбинация для случая "Напротив"
+    private func caseOpposite() {
+        self.cube.flip(.R)
+        self.cube.flip(.U)
+        self.cube.flip(._R)
+        self.cube.flip(.U)
+        self.cube.flip(.R)
+        self.cube.flip(.U)
+        self.cube.flip(.U)
+        self.cube.flip(._R)
+    }
+    
+    // Проверяет получился ли крест.
+    private func isCross(cube: Cube) -> Bool {
+        return
+            cube.numbers[0][2][1] == 7 &&
+            cube.numbers[2][2][1] == 25 &&
+            cube.numbers[1][2][0] == 15 &&
+            cube.numbers[1][2][2] == 17
     }
 }

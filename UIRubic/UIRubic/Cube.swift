@@ -78,6 +78,23 @@ class Cube {
         //self.f = heuristic
     }
     
+    func getFase(type: FaceType) -> Face {
+        switch type {
+        case .l:
+            return self.faces[0]
+        case .f:
+            return self.faces[1]
+        case .r:
+            return self.faces[2]
+        case .b:
+            return self.faces[3]
+        case .u:
+            return self.faces[4]
+        case .d:
+            return self.faces[5]
+        }
+    }
+    
     // Печатает куб по слоям.
     func printLayers() {
         for j in 0...2 {
