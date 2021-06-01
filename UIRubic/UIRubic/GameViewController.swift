@@ -22,9 +22,6 @@ class GameViewController: NSViewController {
     
     let duration: TimeInterval = 0.1
     
-//    var actions = [SCNAction]()
-//    var seqeusence = SCNAction()
-    
     var cube = Cube()
     
     var flag = true
@@ -275,6 +272,17 @@ class GameViewController: NSViewController {
                 }
             }
         }
+    }
+    
+    private func allowsMove(position: SCNVector3, node: SCNNode) -> Bool {
+        if  position == SCNVector3(0 * self.delta, 1 * self.delta, 1 * self.delta) ||
+            position == SCNVector3(1 * self.delta, 1 * self.delta, 2 * self.delta) ||
+            position == SCNVector3(2 * self.delta, 1 * self.delta, 1 * self.delta) ||
+            position == SCNVector3(1 * self.delta, 1 * self.delta, 0 * self.delta) {
+            return true
+        }
+        
+        return true
     }
     
     // MARK: Поиск решения.

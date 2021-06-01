@@ -21,6 +21,8 @@ class Solution {
         stepThree()
         stepFour()
         stepFive()
+        stepSix()
+        stepSeven()
         return self.cube
     }
     
@@ -454,7 +456,6 @@ class Solution {
     }
     
     // MARK: Пятый этап. Првильный желтый крест.
-    // MARK: Пятый этап. Првильный желтый крест.
     private func stepFive() {
         moveLocationRight(number: 25)
         if isCross(cube: cube) {
@@ -465,7 +466,6 @@ class Solution {
             moveLocationRight(number: number)
             caseNearby()
         } else {
-            // Возможно в дальнейшем можно будет убрать.
             print("Opposite")
             caseOpposite()
             if let number = inNearby() {
@@ -548,5 +548,115 @@ class Solution {
             cube.numbers[2][2][1] == 25 &&
             cube.numbers[1][2][0] == 15 &&
             cube.numbers[1][2][2] == 17
+    }
+    
+    // MARK: Этап шесть. Расстановка углов в верхнем слое.
+    private func stepSix() {
+        while !isCorner() {
+            arrangeСorners()
+        }
+    }
+    
+    // Вращение для расстановки углов третьего слоя.
+    private func arrangeСorners() {
+        for (face, number) in zip(self.cube.faces[0...3], [6, 8, 26, 24]) {
+            if isLocalCorner(number: Int8(number)) {
+                flipCorners(face: face)
+                return
+            }
+        }
+        flipCorners(face: self.cube.faces[0])
+    }
+    
+    // Выполняет комбинацию (R U' L' U R' U' L U) относительно текущей грани.
+    private func flipCorners(face: Face) {
+        self.cube.flip(face.flip.faceRight()!)
+        self.cube.flip(._U)
+        self.cube.flip(face.flip.faceLeft()!.faceOpposite()!)
+        self.cube.flip(.U)
+        self.cube.flip(face.flip.faceRight()!.faceOpposite()!)
+        self.cube.flip(._U)
+        self.cube.flip(face.flip.faceLeft()!)
+        self.cube.flip(.U)
+    }
+    
+    // Проверяет, находится ли заданный кубик на своем месте.
+    private func isLocalCorner(number: Int8) -> Bool {
+        switch number {
+        case 6:
+            return self.cube.numbers[0][2][0] == number
+        case 8:
+            return self.cube.numbers[0][2][2] == number
+        case 26:
+            return self.cube.numbers[2][2][2] == number
+        case 24:
+            return self.cube.numbers[2][2][0] == number
+        default:
+            print("Error isLocalCorner")
+        }
+        print("Error isLocalCorner!!!")
+        return false
+    }
+    
+    // Проверяет, находятся ли кубики в углах верхнего слоя на своих местах.
+    private func isCorner() -> Bool {
+        return
+            self.cube.numbers[0][2][0] == 6 &&
+            self.cube.numbers[0][2][2] == 8 &&
+            self.cube.numbers[2][2][2] == 26 &&
+            self.cube.numbers[2][2][0] == 24
+    }
+    
+    // MARK: Седьмой этап. Разворот углов.
+    private func stepSeven() {
+        for face in self.cube.faces[0...3] {
+            if !equalCenterCornerLeft(face: face) {
+                turningCorners(face: self.cube.faces[face.index])
+                break
+            }
+        }
+        moveLocationRight(number: 25)
+    }
+    
+    // Производит разворот углов до полной собраности кубика.
+    private func turningCorners(face: Face) {
+        if isSolution() { return }
+        let indexLeft = face.index - 1 < 0 ? 3 : face.index - 1
+        while !equalCenterCornerLeft(face: self.cube.faces[face.index]) || !equalCenterCornerRight(face: self.cube.faces[indexLeft]) {
+            invertedPifPaf(face: face)
+        }
+        while equalCenterCornerLeft(face: self.cube.faces[face.index]) {
+            self.cube.flip(.U)
+            if isSolution() { return }
+        }
+        turningCorners(face: face)
+    }
+    
+    // Перевернуный пифпаф для текущей грани (L D L' D')
+    private func invertedPifPaf(face: Face) {
+        self.cube.flip(face.flip.faceLeft()!)
+        self.cube.flip(.D)
+        self.cube.flip(face.flip.faceLeft()!.faceOpposite()!)
+        self.cube.flip(._D)
+    }
+    
+    // Проверяет совпадают ли цвета в левом верхнем углу грани и центральный.
+    private func equalCenterCornerLeft(face: Face) -> Bool {
+        return face.matrix[0][0] == face.matrix[0][1]
+    }
+    
+    // Проверяет совпадают ли цвета в правом верхнем углу грани и центральный.
+    private func equalCenterCornerRight(face: Face) -> Bool {
+        return face.matrix[0][1] == face.matrix[0][2]
+    }
+    
+    // Проверка на решение головоломки.
+    private func isSolution() -> Bool {
+        for face in self.cube.faces[0...3] {
+            if !equalCenterCornerLeft(face: face) || !equalCenterCornerRight(face: face) {
+                return false
+            }
+        }
+        return true
     }
 }
