@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="12047" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13151"/>
-        <plugIn identifier="com.apple.SceneKitIBPlugin" version="13151"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <plugIn identifier="com.apple.SceneKitIBPlugin" version="17701"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -12,9 +12,9 @@
                 <application id="hnw-xV-0zn" sceneMemberID="viewController">
                     <menu key="mainMenu" title="Main Menu" systemMenu="main" id="AYu-sK-qS6">
                         <items>
-                            <menuItem title="UIRubic" id="1Xt-HY-uBw">
+                            <menuItem title="UIRubik" id="1Xt-HY-uBw">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="UIRubic" systemMenu="apple" id="uQy-DD-JDr">
+                                <menu key="submenu" title="UIRubik" systemMenu="apple" id="uQy-DD-JDr">
                                     <items>
                                         <menuItem title="About GameTemplate" id="5kV-Vb-QxS">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -675,17 +675,17 @@
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
                     </connections>
                 </application>
-                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModuleProvider="target"/>
+                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="UIRubik" customModuleProvider="target"/>
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="0.0"/>
+            <point key="canvasLocation" x="123" y="-7"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
             <objects>
                 <windowController id="B8D-0N-5wS" sceneMemberID="viewController">
-                    <window key="window" title="UIRubic" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="IQv-IB-iLA">
+                    <window key="window" title="UIRubik" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="196" y="240" width="640" height="480"/>
@@ -695,17 +695,17 @@
                         </connections>
                     </window>
                     <connections>
-                        <segue destination="XfG-lQ-9wD" kind="relationship" relationship="window.shadowedContentViewController" id="cq2-FE-JQM"/>
+                        <segue destination="Uzr-oA-gyL" kind="relationship" relationship="window.shadowedContentViewController" id="2YW-Ca-PBt"/>
                     </connections>
                 </windowController>
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="250"/>
+            <point key="canvasLocation" x="122" y="328"/>
         </scene>
         <!--Game View Controller-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
-                <viewController id="XfG-lQ-9wD" customClass="GameViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="XfG-lQ-9wD" customClass="GameViewController" customModule="UIRubik" customModuleProvider="target" sceneMemberID="viewController">
                     <sceneView key="view" loops="NO" preferredRenderingAPI="-1" id="RvT-eo-GD2">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -713,7 +713,138 @@
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="817"/>
+            <point key="canvasLocation" x="1432" y="518"/>
+        </scene>
+        <!--Split View Controller-->
+        <scene sceneID="yIt-52-xH3">
+            <objects>
+                <splitViewController id="Uzr-oA-gyL" customClass="SplitViewController" customModule="UIRubik" customModuleProvider="target" sceneMemberID="viewController">
+                    <splitViewItems>
+                        <splitViewItem id="xtk-Xd-bEe"/>
+                        <splitViewItem id="jly-Su-AQr"/>
+                    </splitViewItems>
+                    <splitView key="splitView" dividerStyle="thin" id="Ape-mi-M6Y">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <connections>
+                            <outlet property="delegate" destination="Uzr-oA-gyL" id="kdq-7f-9fw"/>
+                        </connections>
+                    </splitView>
+                    <connections>
+                        <outlet property="gameVC" destination="jly-Su-AQr" id="6qJ-IE-DdF"/>
+                        <outlet property="settingVC" destination="xtk-Xd-bEe" id="iZR-zB-hKo"/>
+                        <outlet property="splitView" destination="Ape-mi-M6Y" id="3P0-Xb-gZD"/>
+                        <segue destination="6Rk-GT-UCB" kind="relationship" relationship="splitItems" id="1FA-OM-fKS"/>
+                        <segue destination="XfG-lQ-9wD" kind="relationship" relationship="splitItems" id="Xa3-ir-k8E"/>
+                    </connections>
+                </splitViewController>
+                <customObject id="JMd-hx-JKn" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="762" y="336"/>
+        </scene>
+        <!--Setting View Controller-->
+        <scene sceneID="5fq-hy-m0v">
+            <objects>
+                <viewController id="6Rk-GT-UCB" customClass="SettingViewController" customModule="UIRubik" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="DT4-yu-ueE">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="161"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <textField horizontalHuggingPriority="249" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="7v3-HV-bVj">
+                                <rect key="frame" x="20" y="120" width="350" height="21"/>
+                                <textFieldCell key="cell" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="A8h-lG-1Rh">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="a4p-as-LOW">
+                                <rect key="frame" x="371" y="114" width="66" height="32"/>
+                                <buttonCell key="cell" type="push" title="Read" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Rx7-Ai-YSY">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="pressRead:" target="6Rk-GT-UCB" id="BEy-ca-QvV"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="cZc-AF-MqC">
+                                <rect key="frame" x="358" y="82" width="91" height="32"/>
+                                <buttonCell key="cell" type="push" title="Generate" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="GwS-Rb-HQl">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="pressGenerate:" target="6Rk-GT-UCB" id="haH-Tu-v7Z"/>
+                                </connections>
+                            </button>
+                            <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="NQf-iv-yuu">
+                                <rect key="frame" x="361" y="56" width="19" height="28"/>
+                                <stepperCell key="cell" continuous="YES" alignment="left" increment="5" maxValue="100" doubleValue="5" id="v3g-0F-Jhm"/>
+                                <connections>
+                                    <action selector="pressStepper:" target="6Rk-GT-UCB" id="wRE-bT-89t"/>
+                                </connections>
+                            </stepper>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UN4-PJ-Mgd">
+                                <rect key="frame" x="385" y="62" width="37" height="16"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="kqg-S8-5FO">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField verticalHuggingPriority="749" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="xc4-GJ-gTM">
+                                <rect key="frame" x="20" y="93" width="340" height="16"/>
+                                <textFieldCell key="cell" selectable="YES" title="Welcome to Rubik's Cube." id="UbV-ka-trD">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vEF-P9-dzQ">
+                                <rect key="frame" x="362" y="13" width="84" height="32"/>
+                                <buttonCell key="cell" type="push" title="Solution" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="bY0-q1-Jqv">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="pressSolution:" target="6Rk-GT-UCB" id="nBo-ZK-yp3"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="NQf-iv-yuu" firstAttribute="top" secondItem="cZc-AF-MqC" secondAttribute="bottom" constant="9" id="3s2-Ni-4lE"/>
+                            <constraint firstItem="cZc-AF-MqC" firstAttribute="leading" secondItem="xc4-GJ-gTM" secondAttribute="trailing" constant="7" id="49s-Z6-htC"/>
+                            <constraint firstItem="xc4-GJ-gTM" firstAttribute="top" secondItem="cZc-AF-MqC" secondAttribute="top" id="5jh-xG-G2l"/>
+                            <constraint firstAttribute="trailing" secondItem="a4p-as-LOW" secondAttribute="trailing" constant="20" symbolic="YES" id="9Wj-oj-sct"/>
+                            <constraint firstItem="vEF-P9-dzQ" firstAttribute="top" secondItem="UN4-PJ-Mgd" secondAttribute="bottom" constant="22" id="Bwg-aT-Cc0"/>
+                            <constraint firstItem="a4p-as-LOW" firstAttribute="leading" secondItem="7v3-HV-bVj" secondAttribute="trailing" constant="8" symbolic="YES" id="EC8-eu-OAk"/>
+                            <constraint firstItem="UN4-PJ-Mgd" firstAttribute="leading" secondItem="NQf-iv-yuu" secondAttribute="trailing" constant="10" id="OqE-eY-XiU"/>
+                            <constraint firstItem="cZc-AF-MqC" firstAttribute="top" secondItem="7v3-HV-bVj" secondAttribute="bottom" constant="11" id="Ot8-Nm-R9A"/>
+                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="xc4-GJ-gTM" secondAttribute="bottom" constant="10" id="RKQ-eW-ppb"/>
+                            <constraint firstItem="7v3-HV-bVj" firstAttribute="top" secondItem="DT4-yu-ueE" secondAttribute="top" constant="20" symbolic="YES" id="VfX-cD-0Ac"/>
+                            <constraint firstItem="a4p-as-LOW" firstAttribute="top" secondItem="DT4-yu-ueE" secondAttribute="top" constant="20" symbolic="YES" id="d7R-PA-fAm"/>
+                            <constraint firstItem="UN4-PJ-Mgd" firstAttribute="centerX" secondItem="cZc-AF-MqC" secondAttribute="centerX" id="eCa-4k-oZR"/>
+                            <constraint firstAttribute="trailing" secondItem="vEF-P9-dzQ" secondAttribute="trailing" constant="11" id="iRe-Fk-qib"/>
+                            <constraint firstItem="NQf-iv-yuu" firstAttribute="leading" secondItem="xc4-GJ-gTM" secondAttribute="trailing" constant="6" id="iWo-ym-yg1"/>
+                            <constraint firstAttribute="bottom" secondItem="vEF-P9-dzQ" secondAttribute="bottom" constant="20" symbolic="YES" id="pbG-uD-zkN"/>
+                            <constraint firstAttribute="trailing" secondItem="cZc-AF-MqC" secondAttribute="trailing" constant="8" id="pez-4p-zet"/>
+                            <constraint firstItem="xc4-GJ-gTM" firstAttribute="leading" secondItem="DT4-yu-ueE" secondAttribute="leading" constant="22" id="rO5-XF-7aB"/>
+                            <constraint firstItem="vEF-P9-dzQ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="xc4-GJ-gTM" secondAttribute="trailing" constant="7" id="vEr-QS-mqN"/>
+                            <constraint firstItem="UN4-PJ-Mgd" firstAttribute="top" secondItem="cZc-AF-MqC" secondAttribute="bottom" constant="11" id="vJZ-RB-N2W"/>
+                            <constraint firstItem="7v3-HV-bVj" firstAttribute="leading" secondItem="DT4-yu-ueE" secondAttribute="leading" constant="20" symbolic="YES" id="vWQ-KE-2oB"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="lableStepper" destination="UN4-PJ-Mgd" id="ZCp-ks-tMr"/>
+                        <outlet property="multiLable" destination="xc4-GJ-gTM" id="qMM-Mw-nqm"/>
+                        <outlet property="stepper" destination="NQf-iv-yuu" id="0A2-JU-mW8"/>
+                        <outlet property="textFild" destination="7v3-HV-bVj" id="4ym-ky-myh"/>
+                    </connections>
+                </viewController>
+                <customObject id="GfV-R1-P3y" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1432" y="210.5"/>
         </scene>
     </scenes>
 </document>

@@ -41,7 +41,7 @@ class GameViewController: NSViewController {
         case Key_V = 9          // B'
         case Key_Q = 12         // Next step
         case Key_W = 13         // Prev step
-        case Key_R = 15         // Calculate path
+        case Key_R = 15         // Reset
         case Key_T = 17         // switch path solution
     }
     
@@ -65,7 +65,7 @@ class GameViewController: NSViewController {
         let lightNode = SCNNode()
         lightNode.light = SCNLight()
         lightNode.light!.type = .omni
-        lightNode.position = SCNVector3(x: 0, y: 50, z: 50)
+        lightNode.position = SCNVector3(x: 20, y: 50, z: 50)
         scene.rootNode.addChildNode(lightNode)
         
         // create and add an ambient light to the scene
@@ -75,13 +75,6 @@ class GameViewController: NSViewController {
         ambientLightNode.light!.color = NSColor.darkGray
         scene.rootNode.addChildNode(ambientLightNode)
         
-        // retrieve the ship node
-        //let ship = scene.rootNode.childNode(withName: "ship", recursively: true)!
-        
-        // animate the 3d object
-        //ship.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: 2, z: 0, duration: 1)))
-        
-        //addCube()
         addCubeFromCube()
         
         // retrieve the SCNView
@@ -106,25 +99,7 @@ class GameViewController: NSViewController {
         scnView.gestureRecognizers = gestureRecognizers
     }
     
-    // MARK: Преобразует входную последовательность поворотов (заменяя F2 на F F)
-    private func parserArraySteps(steps: [String]) -> [String] {
-        var result = [String]()
-        for step in steps {
-            if step.count == 2 {
-                if step.last == "2" {
-                    if let first = step.first {
-                        result.append(String(first))
-                        result.append(String(first))
-                        continue
-                    }
-                }
-            }
-            result.append(step)
-        }
-        return result
-    }
-    
-    // MARK: Добавлние обработку событий.
+    // Добавлние обработку событий.
     private func addEvents() {
         NSEvent.addLocalMonitorForEvents(matching: .keyDown) {
             if self.myKeyDown(with: $0) {
@@ -135,12 +110,11 @@ class GameViewController: NSViewController {
          }
     }
     
-    // MARK: Обработка событий нажатий клавиш
+    // Обработка событий нажатий клавиш
     private func myKeyDown(with event: NSEvent) -> Bool {
         // handle keyDown only if current window has focus, i.e. is keyWindow
         guard let locWindow = self.view.window,
         NSApplication.shared.keyWindow === locWindow else { return false }
-        //print(event.keyCode)
         switch event.keyCode {
         case Key.Key_A.rawValue:
             moveNodesCube(flip: .L)
@@ -190,46 +164,34 @@ class GameViewController: NSViewController {
         switch flip {
         case .L:
             (axis, turn) = (.X, .clockwise)
-           // self.cube.flipLeft(turn: .clockwise)
         case ._L:
             (axis, turn) = (.X, .counterclockwise)
-           // self.cube.flipLeft(turn: .counterclockwise)
         case .U:
-            (axis, turn) = (.Y, .counterclockwise)           // Изменил для вращения по часам. Для противоположных граней.
-            //self.cube.flipUp(turn: .clockwise)
+            (axis, turn) = (.Y, .counterclockwise)  // Изменил для вращения по часам. Для противоположных граней.
         case ._U:
-            (axis, turn) = (.Y, .clockwise)                 // Изменил для вращения по часам. Для противоположных граней.
-           // self.cube.flipUp(turn: .counterclockwise)
+            (axis, turn) = (.Y, .clockwise)         // Изменил для вращения по часам. Для противоположных граней.
         case .D:
             (axis, turn) = (.Y, .clockwise)
-            //self.cube.flipDown(turn: .clockwise)
         case ._D:
             (axis, turn) = (.Y, .counterclockwise)
-           // self.cube.flipDown(turn: .counterclockwise)
         case .R:
-            (axis, turn) = (.X, .counterclockwise)          // Изменил для вращения по часам. Для противоположных граней.
-            //self.cube.flipRight(turn: .clockwise)
+            (axis, turn) = (.X, .counterclockwise)  // Изменил для вращения по часам. Для противоположных граней.
         case ._R:
-            (axis, turn) = (.X, .clockwise)                 // Изменил для вращения по часам. Для противоположных граней.
-            //self.cube.flipRight(turn: .counterclockwise)
+            (axis, turn) = (.X, .clockwise)         // Изменил для вращения по часам. Для противоположных граней.
         case .F:
-            (axis, turn) = (.Z, .counterclockwise)          // Изменил для вращения по часам. Для противоположных граней.
-            //self.cube.flipFront(turn: .clockwise)
+            (axis, turn) = (.Z, .counterclockwise)  // Изменил для вращения по часам. Для противоположных граней.
         case ._F:
-            (axis, turn) = (.Z, .clockwise)                 // Изменил для вращения по часам. Для противоположных граней.
-            //self.cube.flipFront(turn: .counterclockwise)
+            (axis, turn) = (.Z, .clockwise)         // Изменил для вращения по часам. Для противоположных граней.
         case .B:
             (axis, turn) = (.Z, .clockwise)
-            //self.cube.flipBack(turn: .clockwise)
         case ._B:
             (axis, turn) = (.Z, .counterclockwise)
-            //self.cube.flipBack(turn: .counterclockwise)
         }
         self.cube.flip(flip)
         moveFromNumbers(axis: axis, turn: turn)
     }
     
-    // MARK: Перемещение по коодинатам куба.
+    // Перемещение по коодинатам куба.
     private func moveFromNumbers(axis: Axis, turn: Turn) {
         let angle: CGFloat
         var positionAxis: SCNVector3
@@ -241,13 +203,10 @@ class GameViewController: NSViewController {
         }
         switch axis {
         case .X:
-            rotate = SCNAction.rotateBy(x: angle, y: 0, z: 0, duration: self.duration)
             positionAxis = SCNVector3(1, 0, 0)
         case .Y:
-            rotate = SCNAction.rotateBy(x: 0, y: angle, z: 0, duration: self.duration)
             positionAxis = SCNVector3(0, 1, 0)
         case .Z:
-            rotate = SCNAction.rotateBy(x: 0, y: 0, z: angle, duration: self.duration)
             positionAxis = SCNVector3(0, 0, 1)
         }
         for i in 0...2 {
@@ -281,36 +240,24 @@ class GameViewController: NSViewController {
             position == SCNVector3(1 * self.delta, 1 * self.delta, 0 * self.delta) {
             return true
         }
-        
         return true
     }
     
-    // MARK: Поиск решения.
+    // Вернуться в исходное состояние.
     private func findSolution() {
         resetCube()
-        let cube = Cube()
-        self.stepsNext = cube.mixerRubik(count: 15)
-        self.stepsPrevious = []
-        let solurion = Solution(cube: cube)
-        print("Run")
-        let solve = solurion.solution()
-        self.solutionPath = solve.path
-        //print(solve.path)
-        solve.printLayers()
-        solve.printCube()
     }
     
-    // MARK: Шаг вперед.
+    // Шаг вперед.
     private func stepNext() {
         if self.stepsNext == nil { return }
         if self.stepsNext!.isEmpty { return }
         guard let flip = self.stepsNext?.removeFirst() else { return }
         moveNodesCube(flip: flip)
         self.stepsPrevious?.insert(flip, at: 0)
-        //self.stepsPrevious?.append(flip)
     }
     
-    // MARK: Шаг назад.
+    // Шаг назад.
     private func stepPrevious() {
         if self.stepsPrevious == nil { return }
         if self.stepsPrevious!.isEmpty { return }
@@ -321,24 +268,13 @@ class GameViewController: NSViewController {
         //self.stepsNext?.append(flip)
     }
     
-    // MARK: Возвращение в исходное состояние.
-    private func resetCube() {
+    // Возвращение в исходное состояние.
+    func resetCube() {
         self.scene?.rootNode.childNodes.forEach( { $0.removeFromParentNode() } )
-        //addCube()
         viewDidLoad()
     }
     
-    // MARK: Возвращает обратное значение вращения F -> F', U' -> U
-//    private func reverseFlip(flip: String) -> String {
-//        if flip.count == 2 {
-//            if let first = flip.first {
-//                return String(first)
-//            }
-//        }
-//        return "\(flip)'"
-//    }
-    
-    // MARK: Добавление куба на сцену.
+    // Добавление куба на сцену. Создает 27 кубиков.
     private func addCube() {
         for i in -1...1 {
             for j in -1...1 {
@@ -350,7 +286,7 @@ class GameViewController: NSViewController {
         }
     }
     
-    // MARK: Добавление куба на сцену по коорлинатам куба.
+    // Добавление куба на сцену по коорлинатам куба-модели
     private func addCubeFromCube() {
         for i in 0...2 {
             for j in 0...2 {
@@ -363,16 +299,12 @@ class GameViewController: NSViewController {
         }
     }
     
-    
+    // Создание кубика по заданным параметрам.
     private func getBox(x: Int, y: Int, z: Int, len: Int) -> SCNNode {
-            let box = SCNNode()
-            let len = CGFloat(len)
+        let box = SCNNode()
+        let len = CGFloat(len)
         box.geometry = SCNBox(width: len, height: len, length: len, chamferRadius: 0.7)
-            //box.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: 2, z: 0, duration: 1)))
-            //box.position = SCNVector3Make(x, y, 0)
-            //box.geometry!.firstMaterial!.diffuse.contents = NSString(stringLiteral: "Hello")
-            //let im = NSImage(named: "\(number)")
-        
+    
         let colors = [NSColor.blue,     // front
                       NSColor.red,      // right
                       NSColor.green,    // back
@@ -380,53 +312,24 @@ class GameViewController: NSViewController {
                       NSColor.yellow,   // up
                       NSColor.white]    // down
 
-            let sideMaterials = colors.map { color -> SCNMaterial in
-                let material = SCNMaterial()
-                material.diffuse.contents = color
-                material.locksAmbientWithDiffuse = true
-                return material
-            }
-
-            //materials = sideMaterials
-            //let material = SCNMaterial()
-        //material = sideMaterials
-            //material.diffuse.contents = color
-//            material.specular.contents = NSImage(named: "bubble")
-//            //material.specular.contents = NSColor.white
-//            material.shininess = 1 // блеск
-        
-        box.geometry?.materials = sideMaterials
-            //box.geometry?.firstMaterial = material
-            box.position = SCNVector3(x, y, z)
-            return box
+        let sideMaterials = colors.map { color -> SCNMaterial in
+            let material = SCNMaterial()
+            material.diffuse.contents = color
+            material.locksAmbientWithDiffuse = true
+            material.specular.contents = NSImage(named: "bubble")
+            material.shininess = 1
+            return material
         }
+        box.geometry?.materials = sideMaterials
+        box.position = SCNVector3(x, y, z)
+        return box
+    }
     
     @objc
     func handleClick(_ gestureRecognizer: NSGestureRecognizer) {
-        //guard let scene = self.scene else { return }
         
         // retrieve the SCNView
         let scnView = self.view as! SCNView
-        
-        //flipCube(flips: ["L'", "L", "L"])
-        //self.scene?.rootNode.replaceChildNode(temp!, with: self.central)
-        //temp?.removeFromParentNode()
-        //temp = nil
-        
-        //rotate(boxRed, around: SCNVector3(1, 0, 0), by: 40, duration: 4, completionBlock: nil)
-        //boxRed.rotation = SCNVector4(0, 1, 0, 0.1)
-//        boxRed.physicsBody = SCNPhysicsBody.dynamic()
-//        scene.physicsWorld.gravity = SCNVector3(0, 0, 0)
-//
-//        boxRed.physicsBody?.applyTorque(SCNVector4(1, 1, 1, 2), asImpulse: true)
-//
-//        boxRed.runAction(SCNAction.wait(duration: 2), completionHandler: {
-//            var axis = SCNVector3(1, 1, 1)
-//            axis = scene.rootNode.convertPosition(axis, to: boxRed)
-//            boxRed.physicsBody?.applyTorque(SCNVector4(x: axis.x, y: axis.y, z: axis.z, w: 2), asImpulse: true)
-//        })
-        
-//        scene.rootNode.addChildNode(boxRed)
         
         // check what nodes are clicked
         let p = gestureRecognizer.location(in: scnView)
@@ -437,25 +340,29 @@ class GameViewController: NSViewController {
             let result = hitResults[0]
             
             // get its material
-            let material = result.node.geometry!.firstMaterial!
             
-            // highlight it
-            SCNTransaction.begin()
-            SCNTransaction.animationDuration = 0.5
+            let colors: [NSColor] = [.orange, .blue, .red, .yellow, .white, .green]
             
-            // on completion - unhighlight
-            SCNTransaction.completionBlock = {
+            for material in result.node.geometry!.materials {
+                
+                // highlight it
                 SCNTransaction.begin()
                 SCNTransaction.animationDuration = 0.5
                 
-                material.emission.contents = NSColor.black
+                // on completion - unhighlight
+                SCNTransaction.completionBlock = {
+                    SCNTransaction.begin()
+                    SCNTransaction.animationDuration = 0.5
+                    
+                    material.emission.contents = NSColor.black
+                    
+                    SCNTransaction.commit()
+                }
+                
+                material.emission.contents = colors.randomElement()
                 
                 SCNTransaction.commit()
             }
-            
-            material.emission.contents = NSColor.red
-            
-            SCNTransaction.commit()
         }
     }
 }

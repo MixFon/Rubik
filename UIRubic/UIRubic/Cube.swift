@@ -37,34 +37,176 @@ class Cube {
         }
     }
     
+    convenience init(argument: String) throws {
+        self.init()
+        let flips = try parserArgument(argument: argument)
+        let flipsFlip = getFlipsFromArrString(arrFlips: flips)
+        for flip in flipsFlip {
+            self.flip(flip)
+        }
+    }
+    
     // Конструктор копирования.
     init(cube: Cube) {
         for face in cube.faces {
             self.faces.append(face)
         }
-        //self.faces = cube.faces
-        //self.faces = []
         self.f = cube.f
         self.path = cube.path
         self.numbers = cube.numbers
         self.g = cube.g + 1
-        //self.coordinats = cube.coordinats
+    }
+    
+    // Переводит массив поворотов строк в массив поворотов (Flip)
+    private func getFlipsFromArrString(arrFlips: [String]) -> [Flip] {
+        var flips = [Flip]()
+        for element in arrFlips {
+            let flip: Flip?
+            switch element {
+            case "L":
+                flip = .L
+            case "F":
+                flip = .F
+            case "R":
+                flip = .R
+            case "B":
+                flip = .B
+            case "U":
+                flip = .U
+            case "D":
+                flip = .D
+            case "L'":
+                flip = ._L
+            case "F'":
+                flip = ._F
+            case "R'":
+                flip = ._R
+            case "B'":
+                flip = ._B
+            case "U'":
+                flip = ._U
+            case "D'":
+                flip = ._D
+            default:
+                flip = nil
+            }
+            if let temp = flip {
+                flips.append(temp)
+            } else {
+                print("Error flips in Cube.")
+                return []
+            }
+        }
+        return flips
+    }
+    
+    // Печатает путь на поток вывода.
+    func printPath() {
+        for flip in getPath() {
+            print(flip, terminator: " ")
+        }
+        print()
+    }
+    
+    // Возвращает решение головоломки в виде одной строки.
+    func getPathString() -> String {
+        var result = String()
+        for flip in getPath() {
+            result += flip + " "
+        }
+        result += "\n"
+        return result
+    }
+    
+    // Возвращает последовательность спинов в виде массива строк
+    func getPath() -> [String] {
+        var result = [String]()
+        var i = 0
+        while i < self.path.count {
+            let count = countFlips(iter: i)
+            if count == 2 && self.path[i].rawValue.count == 1 {
+                result.append("\(self.path[i].rawValue)2")
+                i += count
+                continue
+            } else if count == 3 && self.path[i].rawValue.count == 1 {
+                result.append("\(self.path[i].rawValue)'")
+                i += count
+                continue
+            } else if count == 4 && self.path[i].rawValue.count == 1 {
+                i += count
+                continue
+            } else {
+                result.append(self.path[i].rawValue)
+            }
+            i += 1
+        }
+        return result
+    }
+    
+    // Подсчет одинаковых поворотов.
+    private func countFlips(iter: Int) -> Int {
+        var i = iter
+        let flip = self.path[iter]
+        while i < self.path.count && flip == self.path[i] {
+            i += 1
+        }
+        return i - iter
     }
     
     // Заполнене 3x3x3 массива значениями.
     private func fillNumberCube() {
-        //print(self.numbers)
         var elem: Int8 = 0
         for i in 0...2 {
             for j in 0...2 {
                 for k in 0...2 {
                     self.numbers[i][j][k] = elem
-                    //self.coordinats[elem] = SCNVector3(i, j, k)
                     elem += 1
                 }
             }
         }
-        //print(self.numbers)
+    }
+    
+    // Обрабатывает аргумент (строковую последовательность спинов)
+    private func parserArgument(argument: String) throws -> [String] {
+        let flips = argument.split{ $0 == " " }.map( {String($0)} )
+        for flip in flips {
+            if flip.count == 1 {
+                try checkFlip(flip: flip)
+            } else if flip.count == 2 {
+                try checkFlip(flip: String(flip.first!))
+                if !"'2".contains(flip.last!) {
+                    throw Exception(massage: "Invalid argument: \(flip)")
+                }
+            } else {
+                throw Exception(massage: "Invalid argument: \(flip)")
+            }
+        }
+        return parserArraySteps(steps: flips)
+    }
+    
+    // Преобразует входную последовательность поворотов (заменяя F2 на F F)
+    private func parserArraySteps(steps: [String]) -> [String] {
+        var result = [String]()
+        for step in steps {
+            if step.count == 2 {
+                if step.last == "2" {
+                    if let first = step.first {
+                        result.append(String(first))
+                        result.append(String(first))
+                        continue
+                    }
+                }
+            }
+            result.append(step)
+        }
+        return result
+    }
+    
+    // Проверка на допустимые символы. Допустимы только L F R B U D
+    private func checkFlip(flip: String) throws {
+        if !"LFRBUD".contains(flip) {
+            throw Exception(massage: "Invalid argument: \(flip)")
+        }
     }
     
     // Вывод граней кубика.
@@ -113,11 +255,6 @@ class Cube {
     private func turnCoordinateNumber(axis: Axis, index: Int, turn: Turn) {
         let numbersCoordinate = getNumber(axis: axis, index: index)
         let turnNumber: (inout CGFloat, inout CGFloat) -> ()
-//        if turn == .clockwise {
-//            turnNumber = turnNumberClockwise
-//        } else {
-//            turnNumber = turnNumberСounterclockwise
-//        }
         switch turn {
         case .clockwise:
             if index == 0 {
@@ -228,7 +365,7 @@ class Cube {
         }
     }
     
-    // Запись в пути
+    // Запись поворотов в массив решения
     private func writePath(type: FaceType, turn: Turn) {
         let flip: Flip
         switch type {
@@ -477,7 +614,6 @@ class Cube {
         for _ in 0..<count {
             randomFlips.append(flips.randomElement()!)
         }
-        print(randomFlips)
         for flip in randomFlips {
             self.flip(flip)
         }
@@ -485,7 +621,11 @@ class Cube {
     }
     
     static func == (lhs: Cube, rhs: Cube) -> Bool {
-        return lhs.numbers == rhs.numbers
-        //return lhs.faces == rhs.faces
+        for (left, right) in zip(lhs.faces, rhs.faces) {
+            if left.matrix != right.matrix {
+                return false
+            }
+        }
+        return true
     }
 }

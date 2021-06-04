@@ -14,11 +14,6 @@ struct Face: Hashable {
     var matrix: [[Color]]
     let index: Int
     
-//    var left: Face?
-//    var right: Face?
-//    var up: Face?
-//    var down: Face?
-    
     init(color: Color, flip: Flip, index: Int) {
         self.color = color
         self.flip = flip
@@ -59,7 +54,7 @@ struct Face: Hashable {
     }
     
     static func == (lhs: Face, rhs: Face) -> Bool {
-        return true
+        return lhs.matrix == rhs.matrix
     }
 }
 

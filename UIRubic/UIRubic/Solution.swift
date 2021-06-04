@@ -16,6 +16,9 @@ class Solution {
     }
     
     func solution() -> Cube {
+        if self.cube == Cube() {
+            return self.cube
+        }
         stepFirst()
         stepSecond()
         stepThree()
@@ -358,7 +361,7 @@ class Solution {
     // Комбинация L' U' L U <- R U R' U'
     private func pifPafLeftRight(face: Face) {
         pifPafLeft(face: face)
-        let index = (face.index - 1) < 0 ? 4 : face.index - 1
+        let index = (face.index - 1) < 0 ? 3 : face.index - 1
         pifPafRight(face: self.cube.faces[index])
     }
     
@@ -394,7 +397,7 @@ class Solution {
     
     // Если вверху палка.
     private func yellowStick() {
-        print("yellowStick")
+        //print("yellowStick")
         let faceUp = self.cube.faces[4]
         if faceUp.matrix[1][0] == .yellow && faceUp.matrix[1][2] == .yellow {
             self.cube.flip(.F)
@@ -410,7 +413,7 @@ class Solution {
     
     // Если вверху палка.
     private func yellowHalfCross() {
-        print("yellowHalfCross")
+        //print("yellowHalfCross")
         let faceUp = self.cube.faces[4]
         if faceUp.matrix[1][2] == .yellow && faceUp.matrix[0][1] == .yellow {
             self.cube.flip(.L)
@@ -436,7 +439,7 @@ class Solution {
     
     // Если точка вверхней части.
     private func yellowDot() {
-        print("yellowDot")
+        //print("yellowDot")
         let faceUp = self.cube.faces[4]
         if faceUp.matrix[1][0] != .yellow && faceUp.matrix[2][1] != .yellow &&
             faceUp.matrix[1][2] != .yellow && faceUp.matrix[0][1] != .yellow {
@@ -457,40 +460,84 @@ class Solution {
     
     // MARK: Пятый этап. Првильный желтый крест.
     private func stepFive() {
-        moveLocationRight(number: 25)
-        if isCross(cube: cube) {
-            return
-        }
-        if let number = inNearby() {
-            print("Nearby")
-            moveLocationRight(number: number)
-            caseNearby()
-        } else {
-            print("Opposite")
-            caseOpposite()
-            if let number = inNearby() {
-                print("222Nearby")
-                moveLocationRight(number: number)
-                caseNearby()
-            }
-            //cross(cube: cube)
-        }
-        moveLocationRight(number: 25)
+        nearby()
+        opposite()
+        nearby()
     }
-
-    // Проверяет являтся ли числа соседними
-    private func inNearby() -> Int8? {
-        let cube = self.cube
-        if isNeighbors(left: cube.numbers[0][2][1], rigth: cube.numbers[1][2][2]) {
-            return cube.numbers[0][2][1]
-        } else if isNeighbors(left: cube.numbers[1][2][2], rigth: cube.numbers[2][2][1]) {
-            return cube.numbers[1][2][2]
-        } else if isNeighbors(left: cube.numbers[2][2][1], rigth: cube.numbers[1][2][0]) {
-            return cube.numbers[2][2][1]
-        } else if isNeighbors(left: cube.numbers[1][2][0], rigth: cube.numbers[0][2][1]) {
-            return cube.numbers[1][2][0]
+    
+    // Проверка постояния Рядом
+    private func nearby() {
+        for index in 0...3 {
+            let indexNext = (index + 1) % 4
+            let indexPrevious = (index - 1) < 0 ? 3 : index - 1
+            locateCollor(face: self.cube.faces[index])
+            if isCorrect(face: self.cube.faces[indexNext]) && !isCorrect(face: self.cube.faces[indexPrevious]){
+                //let indexPrevious = (face.index - 1) < 0 ? 4 : face.index - 1
+                caseNearby(face: self.cube.faces[index])
+                //print("Nearby")
+            }
         }
-        return nil
+    }
+    
+    // Проверка состояния Напротив.
+    private func opposite() {
+        for index in 0...3 {
+            let indexNext = (index + 2) % 4
+            let indexPrevious = (index - 1) < 0 ? 3 : index - 1
+            locateCollor(face: self.cube.faces[index])
+            if isCorrect(face: self.cube.faces[indexNext]) && !isCorrect(face: self.cube.faces[indexPrevious]) {
+                //let indexPrevious = (face.index - 1) < 0 ? 4 : face.index - 1
+                caseOpposite(face: self.cube.faces[index])
+                //print("Opposite")
+            }
+        }
+    }
+    
+    // Доводит цвет до своей грани в верхней части.
+    private func locateCollor(face: Face) {
+        while !isCorrect(face: face) {
+            self.cube.flip(.U)
+        }
+    }
+    
+    // Проверяет является ли верным цвет вверху текущей грани.
+    private func isCorrect(face: Face) -> Bool{
+        return self.cube.faces[face.index].matrix[0][1] == face.color
+    }
+    
+    // Комбинация для случая "Рядом"
+    private func caseNearby(face: Face) {
+        self.cube.flip(face.flip)
+        self.cube.flip(.U)
+        self.cube.flip(face.flip.faceOpposite()!)
+        self.cube.flip(.U)
+        self.cube.flip(face.flip)
+        self.cube.flip(.U)
+        self.cube.flip(.U)
+        self.cube.flip(face.flip.faceOpposite()!)
+        self.cube.flip(.U)
+    }
+    
+    // Комбинация для случая "Напротив"
+    private func caseOpposite(face: Face) {
+        self.cube.flip(face.flip.faceRight()!)
+        self.cube.flip(.U)
+        self.cube.flip(face.flip.faceRight()!.faceOpposite()!)
+        self.cube.flip(.U)
+        self.cube.flip(face.flip.faceRight()!)
+        self.cube.flip(.U)
+        self.cube.flip(.U)
+        self.cube.flip(face.flip.faceRight()!.faceOpposite()!)
+    }
+    
+    // Проверяет получился ли крест.
+    private func isCross() -> Bool {
+        for face in self.cube.faces[0...3] {
+            if !isCorrect(face: face) {
+                return false
+            }
+        }
+        return true
     }
     
     // Крутим указанное число на правое место в координиту [2][2][1].
@@ -498,56 +545,6 @@ class Solution {
         while cube.numbers[2][2][1] != number {
             self.cube.flip(.U)
         }
-    }
-    
-    // Проверяет являются ли два поданных числа соседними.
-    private func isNeighbors(left: Int8, rigth: Int8) -> Bool {
-        switch left {
-        case 7:
-            return rigth == 17
-        case 17:
-            return rigth == 25
-        case 25:
-            return rigth == 15
-        case 15:
-            return rigth == 7
-        default:
-            return false
-        }
-    }
-    
-    // Комбинация для случая "Рядом"
-    private func caseNearby() {
-        self.cube.flip(.R)
-        self.cube.flip(.U)
-        self.cube.flip(._R)
-        self.cube.flip(.U)
-        self.cube.flip(.R)
-        self.cube.flip(.U)
-        self.cube.flip(.U)
-        self.cube.flip(._R)
-        self.cube.flip(.U)
-    }
-    
-    // Комбинация для случая "Напротив"
-    private func caseOpposite() {
-        self.cube.flip(.R)
-        self.cube.flip(.U)
-        self.cube.flip(._R)
-        self.cube.flip(.U)
-        self.cube.flip(.R)
-        self.cube.flip(.U)
-        self.cube.flip(.U)
-        self.cube.flip(._R)
-    }
-    
-    // Проверяет получился ли крест.
-    private func isCross(cube: Cube) -> Bool {
-        return
-            cube.numbers[0][2][1] == 7 &&
-            cube.numbers[2][2][1] == 25 &&
-            cube.numbers[1][2][0] == 15 &&
-            cube.numbers[1][2][2] == 17
     }
     
     // MARK: Этап шесть. Расстановка углов в верхнем слое.
