@@ -147,8 +147,8 @@ class GameViewController: NSViewController {
         case Key.Key_R.rawValue:
             findSolution()
         case Key.Key_T.rawValue:
-            self.stepsNext = self.solutionPath
-            self.stepsPrevious = []
+            let info = InfoViewController()
+            presentAsModalWindow(info)
         default:
             return false
         }
