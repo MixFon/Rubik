@@ -6,22 +6,22 @@
 #    By: widraugr <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/29 13:07:44 by widraugr          #+#    #+#              #
-#    Updated: 2021/06/05 20:29:12 by mixfon           ###   ########.fr        #
+#    Updated: 2021/06/07 12:10:24 by mixfon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = rubik
 
-FILE_SWIFT = UIRubic/UIRubic/Color.swift\
-			 UIRubic/UIRubic/Cube.swift\
-			 UIRubic/UIRubic/Exception.swift\
-			 UIRubic/UIRubic/Face.swift\
-			 UIRubic/UIRubic/Flip.swift\
-			 UIRubic/UIRubic/Solution.swift\
-			 UIRubic/UIRubic/Turn.swift\
-			 UIRubic/UIRubic/Axis.swift\
-			 UIRubic/Rubik/main.swift\
-			 UIRubic/Rubik/Rubik.swift
+FILE_SWIFT = UIRubic/Color.swift\
+			 UIRubic/Cube.swift\
+			 UIRubic/Exception.swift\
+			 UIRubic/Face.swift\
+			 UIRubic/Flip.swift\
+			 UIRubic/Solution.swift\
+			 UIRubic/Turn.swift\
+			 UIRubic/Axis.swift\
+			 Rubik/main.swift\
+			 Rubik/Rubik.swift
 
 all : $(NAME)
 
