@@ -31,6 +31,20 @@
         cd Rubik
         open UIRubik.xcodeproj
         
+        
+## Решение головоломки
+
+Для сборки головоломки используется алгоритм "человеческой" сборки, который разделяется на этапов:
+1. Правильный крест
+2. Углы первого слоя
+3. Рёбра среднего слоя
+4. Крест последнего слоя
+5. Правильный крест в последнем слое
+6. Расстановка углов последнего слоя
+7. Разворот углов третьего слоя.
+
+Более подробно про данный алгоритм можно ознакомиться [тут](https://speedcubing.com.ua/howto/3x3 "Кубик")
+        
 ## Вращения
 * F (Front) - вращение передней синей грани по часовой стрелке.
 * L (Left) - вращение левой оранжевой грани по часовой стрелке.
@@ -43,34 +57,29 @@
 
 Цифра 2 обозначает двойное вращение грани по часовой стрелке. (F2 L2 R2 B2 U2 D2)
 
-#### Грань F
-
+#### Вращение F
 ![F](https://github.com/MixFon/Rubik/blob/main/gifs/F.gif)
-
+#### Вращение F'
 ![F'](https://github.com/MixFon/Rubik/blob/main/gifs/F_.gif)
 
-#### Грань L
-
+#### Вращение L
 ![L](https://github.com/MixFon/Rubik/blob/main/gifs/L.gif)
-
+#### Вращение L'
 ![L'](https://github.com/MixFon/Rubik/blob/main/gifs/L_.gif)
 
-#### Грань R
-
+#### Вращение R
 ![R](https://github.com/MixFon/Rubik/blob/main/gifs/R.gif)
-
+#### Вращение R'
 ![R'](https://github.com/MixFon/Rubik/blob/main/gifs/R_.gif)
 
-#### Грань B
-
+#### Вращение B
 ![B](https://github.com/MixFon/Rubik/blob/main/gifs/B.gif)
-
+#### Вращение B'
 ![B'](https://github.com/MixFon/Rubik/blob/main/gifs/B_.gif)
 
-#### Грань U
-
+#### Вращение U
 ![U](https://github.com/MixFon/Rubik/blob/main/gifs/U.gif)
-
+#### Вращение U'
 ![U'](https://github.com/MixFon/Rubik/blob/main/gifs/U_.gif)
     
 
