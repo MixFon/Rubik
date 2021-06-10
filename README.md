@@ -25,11 +25,11 @@
 3. Собрать проект (make)
 4. Запустить программу, в качестве параметра передать строку с последовательностью поворотов граней.
 
-git clone https://github.com/MixFon/Rubik.git
-cd Rubik
-make
-./rubik_cube "F R U R R U"
---> F L' L' R2 D U' L' L' U ...
+        git clone https://github.com/MixFon/Rubik.git
+        cd Rubik
+        make
+        ./rubik_cube "F R U R R U"
+        --> F L' L' R2 D U' L' L' U ...
 
 
 ### Графическая версия
@@ -38,6 +38,6 @@ make
 2. Перейти в папку с исходным кодом
 3. Открыть файл проекта UIRubik.xcodeproj в XCode
 
-git clone https://github.com/MixFon/Rubik.git
-cd Rubik
-open UIRubik.xcodeproj
+        git clone https://github.com/MixFon/Rubik.git
+        cd Rubik
+        open UIRubik.xcodeproj
