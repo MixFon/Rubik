@@ -4,13 +4,13 @@
 На вход программе подается последовательность поворотов граней, которые запутывают кубик. Программа выдает последовательность поворотов граней, которые приведут к собранному состоянию кубика.
 
 ## Использование
-
 ### Консольная версия
-Для работы с консольной версией необходимо:
+Для работы с консольной версией нобходимо:
 1. Клонировать ветку main
 2. Перейти в папку с исходным кодом
 3. Собрать проект (make)
 4. Запустить программу, в качестве параметра передать строку с последовательностью поворотов граней.
+---
     
 
    
@@ -26,14 +26,14 @@
 1. Клонировать ветку main
 2. Перейти в папку с исходным кодом
 3. Открыть файл проекта UIRubik.xcodeproj в XCode
-
+---
         git clone https://github.com/MixFon/Rubik.git
         cd Rubik
         open UIRubik.xcodeproj
-        
-        
-## Решение головоломки
 
+      
+## Решение головоломки
+### Алгоритм
 Для сборки головоломки используется алгоритм "человеческой" сборки, который разделяется на этапов:
 1. Правильный крест
 2. Углы первого слоя
@@ -44,43 +44,32 @@
 7. Разворот углов третьего слоя.
 
 Более подробно про данный алгоритм можно ознакомиться [тут](https://speedcubing.com.ua/howto/3x3 "Кубик")
-        
-## Вращения
-* F (Front) - вращение передней синей грани по часовой стрелке.
-* L (Left) - вращение левой оранжевой грани по часовой стрелке.
-* R (Right) - вращение правой красной грани по часовой стрелке.
-* B (Back) - вращение задней зеленой грани по часовой стрелке.
-* U (Up) - вращение верхней желтой грани по часовой стрелке.
-* D (Down) - вращение нижней белой грани по часовой стрелке.
+
+### Автоматическая сборка
+После нажатия на кнопку _Solution_ появится последовательность поворотов, которая приведет к решению кубика. Для автоматической сборки кубика мужно зажать кнопку _Q_, для прокрутки назад нужно зажать _W_.
+Кнопка _Generate_ генерирует случайную последовательность поворотов.
+![Solution](https://github.com/MixFon/Rubik/blob/main/gifs/Solution.gif)
+
+### Самостоятельная сборка
+Собирать кубик можно самостоятельно, нажимая соответствующие символы на клавиатуре:
+Грань | Символ | Демо
+------|----------------------------|----
+**F (Front)** | **Z** | ![F](https://github.com/MixFon/Rubik/blob/main/gifs/F.gif)
+**F' (Front)**| **X** | ![F'](https://github.com/MixFon/Rubik/blob/main/gifs/F_.gif)
+**L (Left)**  | **A** | ![L](https://github.com/MixFon/Rubik/blob/main/gifs/L.gif)
+**L' (Left)** | **S** | ![L'](https://github.com/MixFon/Rubik/blob/main/gifs/L_.gif)
+**R (Right)**  | **L** | ![R](https://github.com/MixFon/Rubik/blob/main/gifs/R.gif)
+**R' (Right)** | **;** | ![R'](https://github.com/MixFon/Rubik/blob/main/gifs/R_.gif)
+**B (Back)**  | **C** | ![B](https://github.com/MixFon/Rubik/blob/main/gifs/B.gif)
+**B' (Back)** | **V** | ![B'](https://github.com/MixFon/Rubik/blob/main/gifs/B_.gif)
+**U (Up)**  | **D** | ![U](https://github.com/MixFon/Rubik/blob/main/gifs/U.gif)
+**U' (Up)** | **F** | ![U'](https://github.com/MixFon/Rubik/blob/main/gifs/U_.gif)
+**D (Down)**  | **J** | ![D](https://github.com/MixFon/Rubik/blob/main/gifs/D.gif)
+**D' (Down)** | **K** | ![D'](https://github.com/MixFon/Rubik/blob/main/gifs/D_.gif)
 
 Одинарная кавычка обозначает вращение грани против часовой стрелки. (F' L' R' B' U' D')
 
 Цифра 2 обозначает двойное вращение грани по часовой стрелке. (F2 L2 R2 B2 U2 D2)
 
-#### Вращение F
-![F](https://github.com/MixFon/Rubik/blob/main/gifs/F.gif)
-#### Вращение F'
-![F'](https://github.com/MixFon/Rubik/blob/main/gifs/F_.gif)
-
-#### Вращение L
-![L](https://github.com/MixFon/Rubik/blob/main/gifs/L.gif)
-#### Вращение L'
-![L'](https://github.com/MixFon/Rubik/blob/main/gifs/L_.gif)
-
-#### Вращение R
-![R](https://github.com/MixFon/Rubik/blob/main/gifs/R.gif)
-#### Вращение R'
-![R'](https://github.com/MixFon/Rubik/blob/main/gifs/R_.gif)
-
-#### Вращение B
-![B](https://github.com/MixFon/Rubik/blob/main/gifs/B.gif)
-#### Вращение B'
-![B'](https://github.com/MixFon/Rubik/blob/main/gifs/B_.gif)
-
-#### Вращение U
-![U](https://github.com/MixFon/Rubik/blob/main/gifs/U.gif)
-#### Вращение U'
-![U'](https://github.com/MixFon/Rubik/blob/main/gifs/U_.gif)
-    
 
 
