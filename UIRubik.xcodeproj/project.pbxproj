@@ -1,0 +1,505 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2952484C265FB91B00C5C2A4 /* Solution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2952484B265FB91B00C5C2A4 /* Solution.swift */; };
+		29524850265FF25A00C5C2A4 /* Flip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2952484F265FF25A00C5C2A4 /* Flip.swift */; };
+		296DB02026614BAA00DFB221 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296DB01F26614BAA00DFB221 /* Color.swift */; };
+		2983DB31266A2168004FB9BE /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2983DB30266A2168004FB9BE /* SettingViewController.swift */; };
+		2983DB35266A21CC004FB9BE /* SplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2983DB34266A21CC004FB9BE /* SplitViewController.swift */; };
+		2983DB3A266BD489004FB9BE /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2983DB38266BD489004FB9BE /* InfoViewController.swift */; };
+		2983DB3B266BD489004FB9BE /* InfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2983DB39266BD489004FB9BE /* InfoViewController.xib */; };
+		29A8CBFA265D2E2000F8E3C5 /* Coodinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A8CBF9265D2E2000F8E3C5 /* Coodinate.swift */; };
+		29B947652656549F000FF259 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B947642656549F000FF259 /* AppDelegate.swift */; };
+		29B947672656549F000FF259 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B947662656549F000FF259 /* GameViewController.swift */; };
+		29B947692656549F000FF259 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 29B947682656549F000FF259 /* art.scnassets */; };
+		29B9476B265654A3000FF259 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29B9476A265654A3000FF259 /* Assets.xcassets */; };
+		29B9476E265654A3000FF259 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29B9476C265654A3000FF259 /* Main.storyboard */; };
+		29B9477826565502000FF259 /* Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B9477726565502000FF259 /* Cube.swift */; };
+		29CAEEE9265B8AEF00213B5C /* Face.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29CAEEE8265B8AEF00213B5C /* Face.swift */; };
+		29CAEEEC265BB38700213B5C /* Turn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29CAEEEB265BB38700213B5C /* Turn.swift */; };
+		29CAEEF7265CC93D00213B5C /* Axis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29CAEEF6265CC93D00213B5C /* Axis.swift */; };
+		29E06FAC2667B4830025E70A /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E06FAB2667B4830025E70A /* main.swift */; };
+		29E06FB22667B4DA0025E70A /* Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B9477726565502000FF259 /* Cube.swift */; };
+		29E06FB32667B4DA0025E70A /* Face.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29CAEEE8265B8AEF00213B5C /* Face.swift */; };
+		29E06FB42667B4DA0025E70A /* Turn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29CAEEEB265BB38700213B5C /* Turn.swift */; };
+		29E06FB52667B4DA0025E70A /* Axis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29CAEEF6265CC93D00213B5C /* Axis.swift */; };
+		29E06FB62667B4DA0025E70A /* Coodinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A8CBF9265D2E2000F8E3C5 /* Coodinate.swift */; };
+		29E06FB72667B4DA0025E70A /* Solution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2952484B265FB91B00C5C2A4 /* Solution.swift */; };
+		29E06FB82667B4DA0025E70A /* Flip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2952484F265FF25A00C5C2A4 /* Flip.swift */; };
+		29E06FB92667B4DA0025E70A /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296DB01F26614BAA00DFB221 /* Color.swift */; };
+		29E06FBD2667B5DD0025E70A /* Rubik.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E06FBC2667B5DD0025E70A /* Rubik.swift */; };
+		29E06FC12667BA440025E70A /* Exception.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E06FC02667BA440025E70A /* Exception.swift */; };
+		29E06FC22667BA440025E70A /* Exception.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E06FC02667BA440025E70A /* Exception.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		29E06FA72667B4830025E70A /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		2952484B265FB91B00C5C2A4 /* Solution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Solution.swift; sourceTree = "<group>"; };
+		2952484F265FF25A00C5C2A4 /* Flip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flip.swift; sourceTree = "<group>"; };
+		296DB01F26614BAA00DFB221 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		2983DB30266A2168004FB9BE /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		2983DB34266A21CC004FB9BE /* SplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitViewController.swift; sourceTree = "<group>"; };
+		2983DB38266BD489004FB9BE /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
+		2983DB39266BD489004FB9BE /* InfoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoViewController.xib; sourceTree = "<group>"; };
+		29A8CBF9265D2E2000F8E3C5 /* Coodinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coodinate.swift; sourceTree = "<group>"; };
+		29B947612656549F000FF259 /* UIRubik.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UIRubik.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		29B947642656549F000FF259 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		29B947662656549F000FF259 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		29B947682656549F000FF259 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
+		29B9476A265654A3000FF259 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		29B9476D265654A3000FF259 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		29B9476F265654A3000FF259 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		29B94770265654A3000FF259 /* UIRubic.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = UIRubic.entitlements; sourceTree = "<group>"; };
+		29B9477726565502000FF259 /* Cube.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cube.swift; sourceTree = "<group>"; };
+		29CAEEE8265B8AEF00213B5C /* Face.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Face.swift; sourceTree = "<group>"; };
+		29CAEEEB265BB38700213B5C /* Turn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Turn.swift; sourceTree = "<group>"; };
+		29CAEEF6265CC93D00213B5C /* Axis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Axis.swift; sourceTree = "<group>"; };
+		29E06FA92667B4830025E70A /* Rubik */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Rubik; sourceTree = BUILT_PRODUCTS_DIR; };
+		29E06FAB2667B4830025E70A /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		29E06FBC2667B5DD0025E70A /* Rubik.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rubik.swift; sourceTree = "<group>"; };
+		29E06FC02667BA440025E70A /* Exception.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exception.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		29B9475E2656549F000FF259 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		29E06FA62667B4830025E70A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		29B947582656549F000FF259 = {
+			isa = PBXGroup;
+			children = (
+				29B947632656549F000FF259 /* UIRubic */,
+				29E06FAA2667B4830025E70A /* Rubik */,
+				29B947622656549F000FF259 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		29B947622656549F000FF259 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				29B947612656549F000FF259 /* UIRubik.app */,
+				29E06FA92667B4830025E70A /* Rubik */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		29B947632656549F000FF259 /* UIRubic */ = {
+			isa = PBXGroup;
+			children = (
+				29B947642656549F000FF259 /* AppDelegate.swift */,
+				29B947662656549F000FF259 /* GameViewController.swift */,
+				29B947682656549F000FF259 /* art.scnassets */,
+				29B9476A265654A3000FF259 /* Assets.xcassets */,
+				29B9476C265654A3000FF259 /* Main.storyboard */,
+				29B9476F265654A3000FF259 /* Info.plist */,
+				29B94770265654A3000FF259 /* UIRubic.entitlements */,
+				29B9477726565502000FF259 /* Cube.swift */,
+				29CAEEE8265B8AEF00213B5C /* Face.swift */,
+				29CAEEEB265BB38700213B5C /* Turn.swift */,
+				29CAEEF6265CC93D00213B5C /* Axis.swift */,
+				29A8CBF9265D2E2000F8E3C5 /* Coodinate.swift */,
+				2952484B265FB91B00C5C2A4 /* Solution.swift */,
+				2952484F265FF25A00C5C2A4 /* Flip.swift */,
+				296DB01F26614BAA00DFB221 /* Color.swift */,
+				29E06FC02667BA440025E70A /* Exception.swift */,
+				2983DB30266A2168004FB9BE /* SettingViewController.swift */,
+				2983DB34266A21CC004FB9BE /* SplitViewController.swift */,
+				2983DB38266BD489004FB9BE /* InfoViewController.swift */,
+				2983DB39266BD489004FB9BE /* InfoViewController.xib */,
+			);
+			path = UIRubic;
+			sourceTree = "<group>";
+		};
+		29E06FAA2667B4830025E70A /* Rubik */ = {
+			isa = PBXGroup;
+			children = (
+				29E06FAB2667B4830025E70A /* main.swift */,
+				29E06FBC2667B5DD0025E70A /* Rubik.swift */,
+			);
+			path = Rubik;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		29B947602656549F000FF259 /* UIRubik */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 29B94773265654A3000FF259 /* Build configuration list for PBXNativeTarget "UIRubik" */;
+			buildPhases = (
+				29B9475D2656549F000FF259 /* Sources */,
+				29B9475E2656549F000FF259 /* Frameworks */,
+				29B9475F2656549F000FF259 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = UIRubik;
+			productName = UIRubic;
+			productReference = 29B947612656549F000FF259 /* UIRubik.app */;
+			productType = "com.apple.product-type.application";
+		};
+		29E06FA82667B4830025E70A /* Rubik */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 29E06FAD2667B4830025E70A /* Build configuration list for PBXNativeTarget "Rubik" */;
+			buildPhases = (
+				29E06FA52667B4830025E70A /* Sources */,
+				29E06FA62667B4830025E70A /* Frameworks */,
+				29E06FA72667B4830025E70A /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Rubik;
+			productName = Rubik;
+			productReference = 29E06FA92667B4830025E70A /* Rubik */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		29B947592656549F000FF259 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1240;
+				LastUpgradeCheck = 1240;
+				TargetAttributes = {
+					29B947602656549F000FF259 = {
+						CreatedOnToolsVersion = 12.4;
+					};
+					29E06FA82667B4830025E70A = {
+						CreatedOnToolsVersion = 12.4;
+					};
+				};
+			};
+			buildConfigurationList = 29B9475C2656549F000FF259 /* Build configuration list for PBXProject "UIRubik" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 29B947582656549F000FF259;
+			productRefGroup = 29B947622656549F000FF259 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				29B947602656549F000FF259 /* UIRubik */,
+				29E06FA82667B4830025E70A /* Rubik */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		29B9475F2656549F000FF259 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				29B9476E265654A3000FF259 /* Main.storyboard in Resources */,
+				29B9476B265654A3000FF259 /* Assets.xcassets in Resources */,
+				2983DB3B266BD489004FB9BE /* InfoViewController.xib in Resources */,
+				29B947692656549F000FF259 /* art.scnassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		29B9475D2656549F000FF259 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				29CAEEEC265BB38700213B5C /* Turn.swift in Sources */,
+				29CAEEE9265B8AEF00213B5C /* Face.swift in Sources */,
+				29B947672656549F000FF259 /* GameViewController.swift in Sources */,
+				29524850265FF25A00C5C2A4 /* Flip.swift in Sources */,
+				2952484C265FB91B00C5C2A4 /* Solution.swift in Sources */,
+				296DB02026614BAA00DFB221 /* Color.swift in Sources */,
+				29A8CBFA265D2E2000F8E3C5 /* Coodinate.swift in Sources */,
+				29E06FC12667BA440025E70A /* Exception.swift in Sources */,
+				29B947652656549F000FF259 /* AppDelegate.swift in Sources */,
+				2983DB35266A21CC004FB9BE /* SplitViewController.swift in Sources */,
+				2983DB3A266BD489004FB9BE /* InfoViewController.swift in Sources */,
+				29CAEEF7265CC93D00213B5C /* Axis.swift in Sources */,
+				29B9477826565502000FF259 /* Cube.swift in Sources */,
+				2983DB31266A2168004FB9BE /* SettingViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		29E06FA52667B4830025E70A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				29E06FB22667B4DA0025E70A /* Cube.swift in Sources */,
+				29E06FB32667B4DA0025E70A /* Face.swift in Sources */,
+				29E06FB42667B4DA0025E70A /* Turn.swift in Sources */,
+				29E06FBD2667B5DD0025E70A /* Rubik.swift in Sources */,
+				29E06FB52667B4DA0025E70A /* Axis.swift in Sources */,
+				29E06FB62667B4DA0025E70A /* Coodinate.swift in Sources */,
+				29E06FB72667B4DA0025E70A /* Solution.swift in Sources */,
+				29E06FC22667BA440025E70A /* Exception.swift in Sources */,
+				29E06FB82667B4DA0025E70A /* Flip.swift in Sources */,
+				29E06FB92667B4DA0025E70A /* Color.swift in Sources */,
+				29E06FAC2667B4830025E70A /* main.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		29B9476C265654A3000FF259 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				29B9476D265654A3000FF259 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		29B94771265654A3000FF259 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 11.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		29B94772265654A3000FF259 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 11.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		29B94774265654A3000FF259 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = UIRubic/UIRubic.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 7SNPDG93FF;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = UIRubic/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = widraugr.UIRubic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		29B94775265654A3000FF259 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = UIRubic/UIRubic.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 7SNPDG93FF;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = UIRubic/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = widraugr.UIRubic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		29E06FAE2667B4830025E70A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7SNPDG93FF;
+				ENABLE_HARDENED_RUNTIME = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		29E06FAF2667B4830025E70A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7SNPDG93FF;
+				ENABLE_HARDENED_RUNTIME = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		29B9475C2656549F000FF259 /* Build configuration list for PBXProject "UIRubik" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				29B94771265654A3000FF259 /* Debug */,
+				29B94772265654A3000FF259 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		29B94773265654A3000FF259 /* Build configuration list for PBXNativeTarget "UIRubik" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				29B94774265654A3000FF259 /* Debug */,
+				29B94775265654A3000FF259 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		29E06FAD2667B4830025E70A /* Build configuration list for PBXNativeTarget "Rubik" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				29E06FAE2667B4830025E70A /* Debug */,
+				29E06FAF2667B4830025E70A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 29B947592656549F000FF259 /* Project object */;
+}

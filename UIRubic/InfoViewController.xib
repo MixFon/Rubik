@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="InfoViewController" customModule="UIRubik" customModuleProvider="target">
+            <connections>
+                <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="Hz6-mo-xeY">
+            <rect key="frame" x="0.0" y="0.0" width="853" height="636"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="beJ-Zh-XIv">
+                    <rect key="frame" x="-3" y="-3" width="859" height="642"/>
+                    <imageCell key="cell" controlSize="small" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" imageFrameStyle="grayBezel" image="Info" id="02L-Q7-Xzu"/>
+                </imageView>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="beJ-Zh-XIv" secondAttribute="trailing" id="9tw-Y7-xMA"/>
+                <constraint firstItem="beJ-Zh-XIv" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="Ytl-M2-hoI"/>
+                <constraint firstItem="beJ-Zh-XIv" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="cRB-D9-TDd"/>
+                <constraint firstAttribute="bottom" secondItem="beJ-Zh-XIv" secondAttribute="bottom" id="qIl-GB-gVI"/>
+            </constraints>
+            <point key="canvasLocation" x="-9.5" y="252"/>
+        </customView>
+    </objects>
+    <resources>
+        <image name="Info" width="2000" height="1414"/>
+    </resources>
+</document>
