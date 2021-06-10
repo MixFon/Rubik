@@ -20,7 +20,7 @@ class GameViewController: NSViewController {
     var stepsPrevious: [Flip]?
     var solutionPath = [Flip]()
     
-    let duration: TimeInterval = 0.1
+    let duration: TimeInterval = 0.3
     
     var cube = Cube()
     
